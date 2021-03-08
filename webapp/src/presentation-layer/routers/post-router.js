@@ -1,8 +1,7 @@
 const express = require('express')
 
-module.exports = function ({ postManager, commentManager }) {
+module.exports = function ({ postManager}) {
 	const router = express.Router()
-
 	router.use(express.urlencoded({ extended: false }))
 
 	router.get("/", function (request, response) {
@@ -56,8 +55,7 @@ module.exports = function ({ postManager, commentManager }) {
 					comments: comments,
 					error: error,
 					login: request.session.login,
-					account: request.session.account,
-					isOwner: post.accountId == request.session.account.id
+					account: request.session.account
 				}
 				response.render("post.hbs", model)
 			})
@@ -65,7 +63,6 @@ module.exports = function ({ postManager, commentManager }) {
 	})
 
 	router.post("/:id", function (request, response) {
-
 		const id = request.params.id
 		const comment = request.body.comment
 		postManager.getPost(id, function (error, post) {
@@ -75,10 +72,7 @@ module.exports = function ({ postManager, commentManager }) {
 					error: error,
 					post: post,
 					comments: comments,
-					login: request.session.login,
-					error: error,
-					account: request.session.account,
-					isOwner: post.accountId == request.session.account.id
+					login: request.session.login
 				}
 				response.render('post.hbs', model)
 			})

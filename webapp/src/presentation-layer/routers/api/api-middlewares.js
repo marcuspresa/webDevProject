@@ -10,7 +10,6 @@ exports.authenticate = function (req, res, next) {
         accountValidator.validateToken(accessTokenString, function (error, payload) {
             if (error)
                 throw error
-
             req.tokenPayload = payload
             next()
         })
