@@ -80,7 +80,6 @@ module.exports = function ({ postManager, commentManager }) {
 		const body = request.body.body
 		const token = request.session.token
 		postManager.createPost(token, title, body, function (error, newPost) {
-			console.log(newPost + "APA")
 			const model = {
 				newPost: newPost,
 				login: request.session.login,
@@ -105,7 +104,7 @@ module.exports = function ({ postManager, commentManager }) {
 					error: error,
 					login: request.session.login,
 					account: request.session.account,
-					isOwner: post.accountId == request.session.account.id //ibland fungerar denna inte. Den hittar inte account id
+					isOwner: post.accountId == request.session.account.id
 				}
 				response.render("post.hbs", model)
 			})
@@ -116,18 +115,22 @@ module.exports = function ({ postManager, commentManager }) {
 
 		const id = request.params.id
 		const comment = request.body.comment
-		console.log(comment) 
 		postManager.getPost(id, function (error, post) {
 			postManager.createCommentOnPostId(id, comment, request.session.account.username, function (error) {
+				postManager.getCommentsWithPostId(id, function (error,comments){
 				const model = {
 					error: error,
 					post: post,
+					comments: comments,
 					login: request.session.login,
-					account: request.session.account
+					error: error,
+					account: request.session.account,
+					isOwner: post.accountId == request.session.account.id
 				}
 				response.render('post.hbs', model)
 			})
 		})
+	})
 	})
 
 	return router
