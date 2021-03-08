@@ -1,0 +1,95 @@
+<style>
+  .box {
+    width: 100%
+  }
+
+  .section {
+    padding: 0%
+  }
+
+  .card {
+    padding: 1%;
+  }
+
+  .right {
+    float: right;
+  }
+
+  .left {
+    float: left;
+  }
+
+  .textarea-in-post {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+
+    resize: none;
+  }
+</style>
+
+<body>
+
+  <script>
+    $(document).ready(function () {
+      $(form).on('submit', function () {
+        location.reload(true)
+      })
+    })
+
+  </script>
+  <br>
+
+
+  <a class="button is-primary" href="/posts">Back</a>
+
+  <hr>
+
+  <div class="card" id="card-class">
+
+
+    <span class="left"><strong>{{post.title}}</strong></span>
+    <br>
+    <br>
+    <p>{{post.post}}</p>
+    <br>
+    <p><small>Posted by {{post.username}} </small></p>
+
+  </div>
+
+  {{#if login}}
+
+  <form action="/posts/{{post.id}}" id="comment-form" method="POST">
+
+    <textarea class="textarea-in-post" rows="10" placeholder="Write your comment here..." name="comment" id="comment"
+      required></textarea>
+
+    <button type="submit" class="button is-primary">Comment!</button>
+
+    <hr>
+
+  </form>
+
+  {{/if}}
+  {{#if isOwner}}
+  {{#ifEquals post.accountId account.id}}
+  <form action="/posts/{{post.id}}/delete" method="POST"> 
+    <button class="button is-danger" id="deleteButton" type="submit">Delete post</button>
+  </form>
+
+      <a class="button is-warning " id="editButton" href="/posts/{{post.id}}/edit" >Edit post</a>
+  
+
+  {{/ifEquals}}
+  {{/if}}
+
+  {{#each comments}}
+
+  <p>{{username}}: {{comment}}</p>
+
+  {{/each}}
+
+</body>

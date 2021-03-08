@@ -1,0 +1,70 @@
+<html>
+<head>
+  {{#if newPost}}
+<script>
+  function newPostAlert(){
+    alert("New post created!")
+  }
+</script>
+{{/if}}
+</head>
+<style>
+
+
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+.textarea-in-post{
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+
+  resize: none;
+}
+
+</style>
+
+<body onload="newPostAlert()">
+
+<div class="content">
+
+	<h2>New post</h2>
+	<p>Create a new post the form below.</p>
+
+</div>
+
+<form id="post-form" method="POST">
+	
+    <hr>
+  
+
+	 <label for="title"><b>Title</b></label>
+	 <input type="text" placeholder="Enter title" name="title" id="title">
+
+
+    <label for="body"><b>Post</b></label>
+    <textarea class="textarea-in-post" rows="10" placeholder="Write your post here..." name="body" id="post"></textarea>
+
+
+	<button type="submit" class="button is-primary">Post!</button>
+
+    <hr>
+
+	
+</form>
+
+</body>
+
+
+
+</html>

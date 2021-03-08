@@ -1,0 +1,41 @@
+<style>
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+</style>
+
+<div class="content">
+
+	<h2>Sign up</h2>
+	<p>Create a new account using the form below.</p>
+	{{#if errors.length}}
+	<p>Oh no, something went wrong:</p>
+	<ul>
+		{{#each errors}}
+			<li>{{this}}</li>
+		{{/each}}
+	</ul>
+	{{/if}}
+</div>
+
+<form action="/accounts/sign-up"  method="POST">
+	<hr>
+	<label for="username"><b>Username</b></label>
+	<input type="text" placeholder="Enter username" name="username"  required>
+
+	<label for="password"><b>Password</b></label>
+	<input type="password" placeholder="Enter password" name="password" required>
+
+	<button type="submit" class="button is-primary">Sign up!</button>
+
+	<hr>
+	
+</form>
+

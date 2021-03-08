@@ -1,0 +1,140 @@
+<style>
+	input[type=text],
+	input[type=password] {
+		width: 100%;
+		padding: 15px;
+		margin: 5px 0 22px 0;
+		display: inline-block;
+		border: none;
+		background: #f1f1f1;
+	}
+</style>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BackFlash</title>
+	<link rel="stylesheet" type="text/css" href="bulma.min.css">
+	<link rel="stylesheet" type="text/css" href="layout.css">
+	<script src="navigation.js"></script>
+	<script src="sign-up-page.js"></script>
+	<script src="sign-in-page.js"></script>
+	<script src="your-posts-page.js"></script>
+	<script src="show-posts-page.js"></script>
+	<script src="edit-post-page.js"></script>
+	<script src="delete-post.js"></script>
+	<script src="create-post-page.js"></script>
+	<script src="jwt-decode.js"></script>
+</head>
+
+<body>
+
+	<div id="entire-page">
+		<header class="is-size-1 has-text-centered">
+			BackFlash
+		</header>
+		<nav class="navbar has-background-light" role="navigation" aria-label="main navigation">
+
+			<div class="navbar-brand">
+				<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+			</div>
+			<div id="navbar" class="navbar-menu is-active">
+				<div class="navbar-start">
+					<a class="navbar-item" href="/">Home</a>
+					<li class="show-if-logged-in"><a class="navbar-item" href="/posts">Posts</a></li>
+					<li class="show-if-logged-in"><a class="navbar-item" href="/your-posts">Your posts</a></li>
+					<li class="show-if-logged-in"><a class="navbar-item" href="/create-post">Create a post</p></li>
+				</div>
+				<div class="navbar-end">
+					<div class="navbar-item">
+						<div class="buttons">
+							<li class="show-if-not-logged-in"><a class="button is-primary" href="/sign-up">Sign up</a></li>
+							<li class="show-if-not-logged-in"><a class="button is-dark" href="/sign-in">Sign in</a></li>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<main>
+		<div id="home-page" class="current-page">
+			<p>Hello and welcome</p>
+		</div>
+		<div id="sign-in-page">
+			<form>
+				<hr>
+				<label for="username"><b>Username</b></label>
+				<input type="text" placeholder="Enter username"  id="sign-in-username" required>
+
+				<label for="password"><b>Password</b></label>
+				<input type="password" placeholder="Enter password" id="sign-in-password" required>
+
+				<button type="submit" value="Sign in" class="button is-dark">Sign in!</button>
+				<hr>
+			</form>
+		</div>
+		<div id="sign-up-page">
+
+			<form>
+				<hr>
+				<label for="username"><b>Username</b></label>
+				<input type="text" placeholder="Enter username" id="sign-up-username" required>
+
+				<label for="password"><b>Password</b></label>
+				<input type="password" placeholder="Enter password" id="sign-up-password" required>
+
+				<button type="submit" value="Sign in" class="button is-primary">Sign up!</button>
+
+				<hr>
+
+			</form>
+		</div>
+		<div class="card" id="show-posts-page">
+				<ul>
+
+				</ul>	
+	
+		</div>
+		<div class="card" id="create-post-page">
+			<form>
+				<hr>
+				<label for="Title"><b>Title</b></label>
+				<input type="text" placeholder="Enter Title" id="post-title" required>
+
+				<label for="Post"><b>Post</b></label>
+				<input type="text" placeholder="Enter Post" id="post-content" required>
+
+				<button type="submit" class="button is-primary">Create</button>
+
+				<hr>
+			</form>	
+	    </div>
+		<div class="card" id="your-posts-page">
+				<ul>
+
+				</ul>
+	
+		</div>
+		<div class="card" id="edit-post-page">
+				<h1>Edit Moviepost!</h1>
+				<form>
+					<div>
+						Title: <input type ="text" id="edit-post-title">
+						content: <input type="text" id="edit-post-content">
+						<input type="submit" value="Update">
+					</div>
+				</form>
+	
+		</div>
+
+	</main>
+
+</body>
+
+</html>

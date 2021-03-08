@@ -1,0 +1,41 @@
+<style>
+	input[type=text],
+	input[type=password] {
+		width: 100%;
+		padding: 15px;
+		margin: 5px 0 22px 0;
+		display: inline-block;
+		border: none;
+		background: #f1f1f1;
+	}
+</style>
+
+<div class="content">
+
+	<h2>Sign in</h2>
+	<p>Sign in using the form below.</p>
+	{{#if error}}
+	<p>Oh no, something went wrong:</p>
+
+	<p>{{error}}</p>
+	
+	{{/if}}
+</div>
+
+<div id="sign-in-page">
+	<form action="/accounts/sign-in" method="POST">
+
+		<hr>
+
+		<label for="username"><b>Username</b></label>
+		<input type="text" placeholder="Enter username" name="username" required>
+
+		<label for="password"><b>Password</b></label>
+		<input type="password" placeholder="Enter password" name="password" required>
+
+		<button type="submit" class="button is-dark">Sign in!</button>
+
+		<hr>
+</div>
+
+</form>
