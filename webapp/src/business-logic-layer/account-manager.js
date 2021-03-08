@@ -29,7 +29,7 @@ module.exports = function ({accountRepository,accountValidator}) {
 		},
 
 		createAccount: function (username, password, callback) {
-
+			console.log("create acc")
 			accountValidator.getErrorsNewAccount(username, password, function (errors) {
 				if (errors) {
 					callback(errors, null)
