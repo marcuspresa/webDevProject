@@ -56,7 +56,7 @@ module.exports = function ({ accountManager, accountValidator }) {
 					if (error)
 						return res.render("accounts-sign-in.hbs", { errors: [error] })
 
-					req.session.account = account
+					req.session.account = account					
 					req.session.login = true
 					req.session.token = idToken
 					res.render("home.hbs", { login: true, account: account, token: idToken})
@@ -67,9 +67,9 @@ module.exports = function ({ accountManager, accountValidator }) {
 
 	router.get("/sign-out", function (request, response) {
 		request.session.destroy()
-		response.render("sign-out.hbs")
+		response.render("sign-out.hbs" , {login: false })
 	})
-
+/*
 	router.get("/", function (request, response) {
 		accountManager.getAllAccounts(function (errors, accounts) {
 			const model = {
@@ -96,7 +96,7 @@ module.exports = function ({ accountManager, accountValidator }) {
 			response.json(model)
 		})
 
-	})
+	})*/
 
 	return router
 
