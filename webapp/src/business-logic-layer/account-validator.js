@@ -14,8 +14,8 @@ module.exports = function ({ accountRepository }) {
 			else if(password.length < MIN_PASSWORD_LENGTH) {
 				errors.push("password must be atleast 6 symbols")
 			}
+
 			accountRepository.getAccountByUsername(username, function (error, account) {
-		
 				if (account) {
 					errors.push("username already exists")
 				}

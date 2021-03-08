@@ -27,12 +27,10 @@ module.exports = function ({ db }) {
         getAccountByUsername: function (username, callback) {
             const query = `SELECT * FROM accounts WHERE username = ? LIMIT 1`
             db.query(query, [username], (error, response) => {
-                if (error) return callback(error, null)
-                if (response && response.length >= 1) {
-                    console.log(response[0] + "ACCOUNT")
-                    return callback(null, response[0])
-                }
-                else {
+                if (error) callback(error, null)
+                else if (response && response.length >= 1) {
+                    callback(null, response[0])
+                } else {
                     callback()
                 }
             })
@@ -41,14 +39,15 @@ module.exports = function ({ db }) {
         },
         createAccount: function (username, password, callback) {
             const query = `INSERT INTO accounts (username, password) VALUES (?, ?)`
-
             db.query(query, [username, password], (error, response) => {
-                if (error) return callback(error, null)
-                if (response && response.length >= 1) {
-                    return callback(null, response)
-                }
-                else {
-                    callback()
+                console.log(response, error, "TESTING")
+                if (error) callback(error, null)
+                else if (response && response.affectedRows > 0) {
+                    this.getAccountByUsername(username, function(error, account){
+                        callback(error, account)
+                    })
+                } else {
+                    callback(`Unknown error`)
                 }
             })
 
