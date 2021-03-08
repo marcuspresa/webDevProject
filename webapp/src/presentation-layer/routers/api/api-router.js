@@ -5,7 +5,6 @@ const jwtSecret = "adfsdfsdfsdfsd"
 module.exports = function ({
 	accountManager,
 	accountValidator,
-	commentManager,
 	postManager
 }) {
 	const router = express.Router()
