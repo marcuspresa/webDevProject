@@ -74,18 +74,6 @@
   </form>
 
   {{/if}}
-  {{#if isOwner}}
-  {{#ifEquals post.accountId account.id}}
-
-  <form action="/posts/{{post.id}}/delete" method="POST"> 
-    <button class="button is-danger" id="deleteButton" type="submit">Delete post</button>
-  </form>
-
-      <a class="button is-warning " id="editButton" href="/posts/{{post.id}}/edit" >Edit post</a>
-  
-
-  {{/ifEquals}}
-  {{/if}}
 
   {{#each comments}}
 

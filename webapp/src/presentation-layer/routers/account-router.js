@@ -69,34 +69,6 @@ module.exports = function ({ accountManager, accountValidator }) {
 		request.session.destroy()
 		response.render("sign-out.hbs" , {login: false })
 	})
-/*
-	router.get("/", function (request, response) {
-		accountManager.getAllAccounts(function (errors, accounts) {
-			const model = {
-				errors: errors,
-				accounts: accounts,
-				login: request.session.login
-			}
-			//response.render("accounts-list-all.hbs", model)
-			response.json(model)
-		})
-	})
-
-	router.get('/:username', function (request, response) {
-
-		const username = request.params.username
-
-		accountManager.getAccountByUsername(username, function (error, account) {
-			const model = {
-				errors: error,
-				account: account,
-				login: request.session.login
-			}
-			//		response.render("accounts-show-one.hbs", model)
-			response.json(model)
-		})
-
-	})*/
 
 	return router
 

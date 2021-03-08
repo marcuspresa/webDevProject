@@ -19,7 +19,6 @@ module.exports = function ({accountRepository,accountValidator}) {
 			accountRepository.getAccountByUsername(username, function (error, account) {
 				if (error)
 					return callback(error, null)
-
 				jwt.sign({
 					sub: account.id,
 					username: username
@@ -29,7 +28,6 @@ module.exports = function ({accountRepository,accountValidator}) {
 		},
 
 		createAccount: function (username, password, callback) {
-			console.log("create acc")
 			accountValidator.getErrorsNewAccount(username, password, function (errors) {
 				if (errors) {
 					callback(errors, null)

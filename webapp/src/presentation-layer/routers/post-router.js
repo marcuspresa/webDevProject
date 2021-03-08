@@ -27,53 +27,6 @@ module.exports = function ({ postManager, commentManager }) {
 		}
 	})
 
-	router.get("/:id/edit", function (request, response){
-		const token = request.session.token
-		const id = request.params.id
-		if (!request.session.login) 
-			return response.redirect("/accounts/sign-in")
-		
-		postManager.getPostIfOwner(token, id, function(error, post) {
-			const model = {
-				login: request.session.login
-			}
-			response.render("edit-post.hbs", {post: post, error: error}, model)	
-		})
-		
-	})
-
-	router.post("/:id/edit", function (request, response) {
-		const title = request.body.title
-		const body = request.body.body
-		const token = request.session.token
-		const id = request.params.id
-		postManager.editPost(token, id, title, body, function (error, editedPost) {
-			const model = {
-				editedPost: error ? false : true,
-				post: editedPost,
-				login: request.session.login,
-				error: error
-			}
-			response.render("edit-post.hbs", model)
-		})
-
-	})
-
-	router.post("/:id/delete", function (request, response) {
-		const token = request.session.token
-		const id = request.params.id
-		postManager.deletePost(token, id, function (error, deleted) {
-			const model = {
-				login: request.session.login
-			}
-			if (error)
-				return response.render("post.hbs", { error: error }, model)
-
-			response.redirect("/posts")
-		})
-
-	})
-
 	router.post("/new", function (request, response) {
 
 		const title = request.body.title
