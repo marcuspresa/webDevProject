@@ -1,7 +1,8 @@
-const config = require("./config")
+
+const config = require("../config")
 
 function deletePostPage(postId) {
-    fetch("http://192.168.99.100:8080/api/delete-your-post/" + postId, {
+    fetch(config.defaultURL+":"+defaultPORT+"/api/delete-your-post/" + postId, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",

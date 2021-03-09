@@ -23,11 +23,9 @@ services:
     build: ./redis
     ports:
       - '6767:6767'
-
-  spa:
-    build: ./spa
-    volumes:
-      - "./spa/public:/usr/share/spa/html"
+  nginx:
+    build: ./SPA
     ports:
-     - "3000:80"
-    
+      - "3000:80"
+    volumes:
+      - "./SPA:/SPA"

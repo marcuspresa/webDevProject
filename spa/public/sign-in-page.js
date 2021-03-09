@@ -1,6 +1,8 @@
 var userInfo
 var accessToken
 
+const config = require("../config")
+
 document.addEventListener("DOMContentLoaded", function () {
 
 	const signInForm = document.querySelector("#sign-in-page form")

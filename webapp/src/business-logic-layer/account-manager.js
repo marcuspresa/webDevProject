@@ -14,7 +14,7 @@ module.exports = function ({accountRepository,accountValidator}) {
 				callback(error, account)
 			})
 		},
-
+	
 		generateToken: function (username, callback) {
 			accountRepository.getAccountByUsername(username, function (error, account) {
 				if (error)

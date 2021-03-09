@@ -31,13 +31,11 @@ module.exports = function ({ postManager}) {
 		const title = request.body.title
 		const body = request.body.body
 		const token = request.session.token
-		postManager.createPost(token, title, body, function (error, newPost) {
-			const model = {
-				newPost: newPost,
-				login: request.session.login,
-				error: error
+		postManager.createPost(token, title, body, function (error, createdPostId) {
+			if (error) {
+				return response.render("new-post.hbs", { error: error })
 			}
-			response.render("posts.hbs", model)
+			response.redirect("/posts/" + createdPostId)
 		})
 
 	})
@@ -67,15 +65,19 @@ module.exports = function ({ postManager}) {
 		const comment = request.body.comment
 		postManager.getPost(id, function (error, post) {
 			postManager.createCommentOnPostId(id, comment, request.session.account.username, function (error) {
-				postManager.getCommentsWithPostId(id, function (error,comments){
-				const model = {
-					error: error,
-					post: post,
-					comments: comments,
-					login: request.session.login
-				}
-				response.render('post.hbs', model)
-			})
+				if(error){
+					return response.render('post.hbs', {error: error})
+				}else{
+					postManager.getCommentsWithPostId(id, function (error,comments){
+						const model = {
+							error: error,
+							post: post,
+							comments: comments,
+							login: request.session.login
+						}
+						response.render('post.hbs', model)
+				})
+				}	
 		})
 	})
 	})

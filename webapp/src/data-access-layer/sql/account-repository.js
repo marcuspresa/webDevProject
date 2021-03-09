@@ -1,24 +1,32 @@
 module.exports = function ({ db }) {
     return {
 
-        getAllAccounts: function (callback) {
+        /*
+            Get all accounts.
+        */
+      /*  getAllAccounts: function (callback) {
             const query = `SELECT * FROM accounts ORDER BY username`
+            const values = [];
 
-            db.query(query, callback)
-
-        },
-
+            db.query(query, values, function(err, accounts) {
+                if (err) {
+                    callback(["dbError"], null);
+                }else if (!accounts.length) {
+                    callback(["noAccounts"], null);
+                } else callback([], accounts);
+      });
+            },
+*/
         getPasswordByUsername: function (username, callback) {
             const query = `SELECT password FROM accounts WHERE username = ? `
 
             db.query(query, [username], (error, response) => {
-                console.log(response)
                if (error) return callback(error, null)
                if(response && response.length >= 1 && response[0].password) {
                     return callback(null, response[0].password)
                 }
                 else {
-                    callback()
+                    callback('Unknown error')
                 }
             })
 
@@ -31,7 +39,7 @@ module.exports = function ({ db }) {
                 else if (response && response.length >= 1) {
                     callback(null, response[0])
                 } else {
-                    callback()
+                    callback('Unknown error')
                 }
             })
 
@@ -40,14 +48,13 @@ module.exports = function ({ db }) {
         createAccount: function (username, password, callback) {
             const query = `INSERT INTO accounts (username, password) VALUES (?, ?)`
             db.query(query, [username, password], (error, response) => {
-                console.log(response, error, "TESTING")
                 if (error) callback(error, null)
                 else if (response && response.affectedRows > 0) {
                     this.getAccountByUsername(username, function(error, account){
                         callback(error, account)
                     })
                 } else {
-                    callback(`Unknown error`)
+                    callback('Unkown error')
                 }
             })
 

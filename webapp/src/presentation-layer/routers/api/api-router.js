@@ -23,20 +23,18 @@ module.exports = function ({
 		}
 	})
 
-
+	//API- Login/get access-token
 	router.post("/tokens", function (request, response) {
 		const grant_type = request.body.grant_type
 		const username = request.body.username
 		const password = request.body.password
 		if (grant_type != "password") {
-			response.status(400).json({
-				error: "unsupported_grant_type"
-			})
+			response.status(400).json({error: "unsupported_grant_type"})
 			return
 		}
-		accountValidator.validateAccount(username, password, function (errors, account) {
+		accountValidator.checkCredentials(username, password, function (errors, account) {
 			if (errors.length) {
-				response.status(400).end()
+				response.status(500).json({ error: "Error_logging_in" });
 			}
 			else {
 				const accessToken = jwt.sign({
@@ -46,7 +44,6 @@ module.exports = function ({
 					sub: account.id,
 					preferred_username: account.username
 				}, "secret")
-
 				response.status(200).json({
 					access_token: accessToken,
 					id_token: idToken
@@ -55,21 +52,22 @@ module.exports = function ({
 		})
 	})
 
-	
-	
-	router.get("/accounts/:id/posts", function (request, response) {
-		const accountId = request.payload.accountId
-		postManager.getPostWithAccountId(accountId, function (error, posts) {
-			if (error.length) {
-				response.status(400).end()
+	// create account
+    router.post("/createaccount", function (req, res, next) {
+		const username = req.body.username
+		const password = req.body.password
+		accountManager.createAccount(username, password, function (errors, accounts) {
+			if (errors.length) {
+				res.status(500).json("Error creating account");
+			}
+			else if (accounts == null) {
+				res.status(400).end()
 			}
 			else {
-				response.status(200).json(posts)
+				res.status(200).end()
 			}
 		})
-
 	})
-
 	return router
 }
 

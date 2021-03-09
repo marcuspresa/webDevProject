@@ -85,7 +85,19 @@ module.exports = function ({ postManager }) {
         })
 
     })
+    
+    router.get("/:id/posts", function (request, response) {
+		const accountId = request.payload.accountId
+		postManager.getPostsWithAccountId(accountId, function (error, posts) {
+			if (error.length) {
+				response.status(400).end()
+			}
+			else {
+				response.status(200).json(posts)
+			}
+		})
 
+	})
 
     return router
 }

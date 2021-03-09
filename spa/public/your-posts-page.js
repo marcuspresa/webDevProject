@@ -1,6 +1,9 @@
+
+const config = require("../config")
+
 function getYourPost() {
 
-	fetch("http://192.168.99.100:8080/api/your-posts/"+userInfo.sub, {
+	fetch(config.defaultURL+":"+defaultPORT+"/api/your-posts/"+userInfo.sub, {
 		method: "GET",
 		headers: {
 			"Authorization": "Bearer " + accessToken

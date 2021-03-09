@@ -3,7 +3,6 @@ module.exports = function ({ db }) {
         getAllPosts: function (callback) {
 
             const query = "SELECT * FROM posts"
-
             db.query(query, callback)
 
         },

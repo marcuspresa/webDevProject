@@ -1,6 +1,9 @@
+
+const config = require("../config")
+
 function updateShowPostPage(){
 	
-	fetch("http://192.168.99.100:8080/api/posts", {
+	fetch(config.defaultURL+":"+defaultPORT+"/api/posts", {
 		method: "GET",
 		headers: {
 			"Authorization": "Bearer "+accessToken

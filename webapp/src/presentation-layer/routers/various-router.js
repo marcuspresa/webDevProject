@@ -1,7 +1,7 @@
 const express = require('express')
 
 
-module.exports = function ({postManager}) {
+module.exports = function () {
 	const router = express.Router()
 	
 	router.use(express.urlencoded({ extended: false }))

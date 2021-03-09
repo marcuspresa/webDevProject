@@ -4,17 +4,16 @@ module.exports = function ({ postRepository, accountValidator }) {
 	return {
 
 		getAllPosts: function (callback) {
-			postRepository.getAllPosts(function (error, result) {
+			postRepository.getAllPosts(function (error, posts) {
 				if (error) {
 					callback(new Error("Could not get all posts"), null)
 				}
 				else {
-					callback(null, result)
+					callback(null, posts)
 				}
 			})
 
 		},
-
 		createPost: function (token, title, body, callback) {
 			accountValidator.validateToken(token, function (tokenError, payload) {
 				if (tokenError)
@@ -27,7 +26,6 @@ module.exports = function ({ postRepository, accountValidator }) {
 			})
 		},
 
-		
 		getCommentsWithPostId: function (id, callback) {
 			postRepository.getCommentsWithPostId(id, callback)
 		},

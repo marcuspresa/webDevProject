@@ -1,34 +1,33 @@
 const post = require("../models/post-model.js")
 const comment = require("../models/comment-model.js")
 
-function getPostById(id) {
-	post.findOne({
-		where: {
-			id: id
-		}
-	}).then(function (post) {
-		callback(null, post)
-	}).catch(function (error) {
-		callback("No post with given id" + id, null)
-	})
-}
-
-function getPostsForAccountId(accountId) {
-	post.findOne({
-		where: {
-			id: accountId
-		},
-		raw: true
-	}).then(function (posts) {
-		callback(null, posts)
-	}).catch(function (error) {
-		callback("No posts for given account id" + id, null)
-	})
-
-}
-
 module.exports = function () {
 	return {
+		getPostById(id) {
+			post.findOne({
+				where: {
+					id: id
+				}
+			}).then(function (post) {
+				callback(null, post)
+			}).catch(function (error) {
+				callback("No post with given id" + id, null)
+			})
+		},
+		getPostsForAccountId(accountId) {
+			post.findOne({
+				where: {
+					id: accountId
+				},
+				raw: true
+			}).then(function (posts) {
+				callback(null, posts)
+			}).catch(function (error) {
+				callback("No posts for given account id" + id, null)
+			})
+		
+		},
+
 		getAllPosts: function (callback) {
 			post.findAll({ raw: true }).then(function (allPosts) {
 				callback(null, allPosts)

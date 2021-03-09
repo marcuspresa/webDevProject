@@ -1,5 +1,6 @@
 const express = require('express')
 
+
 module.exports = function ({ accountManager, accountValidator }) {
 
 	const router = express.Router()
@@ -49,13 +50,11 @@ module.exports = function ({ accountManager, accountValidator }) {
 		accountValidator.checkCredentials(username, password, function (error, account) {
 			if (error) {
 				res.render("accounts-sign-in.hbs", { error: error })
-
 			}
 			else {
 				accountManager.generateToken(username, function (error, idToken) {
 					if (error)
 						return res.render("accounts-sign-in.hbs", { errors: [error] })
-
 					req.session.account = account					
 					req.session.login = true
 					req.session.token = idToken
@@ -67,6 +66,9 @@ module.exports = function ({ accountManager, accountValidator }) {
 
 	router.get("/sign-out", function (request, response) {
 		request.session.destroy()
+		response.locals.account = null
+		response.locals.token = null
+		response.locals.login = false
 		response.render("sign-out.hbs" , {login: false })
 	})
 

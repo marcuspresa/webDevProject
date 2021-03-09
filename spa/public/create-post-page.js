@@ -1,6 +1,6 @@
-const config = require("./config")
 
-
+const { defaultPORT } = require("../config")
+const config = require("../config")
 document.addEventListener("DOMContentLoaded", function(){
 	
 	const createPost = document.querySelector("#create-post-page form")
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function(){
 		const title = document.getElementById("post-title").value
 		const postContent = document.getElementById("post-content").value
 		
-		fetch(config.defaultURL+":"+config.defaultPORT"/api/new-post", {
+		fetch(config.defaultURL+":"+defaultPORT+"/api/new-post", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
