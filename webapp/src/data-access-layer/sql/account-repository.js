@@ -4,7 +4,7 @@ module.exports = function ({ db }) {
         /*
             Get all accounts.
         */
-      /*  getAllAccounts: function (callback) {
+        getAllAccounts: function (callback) {
             const query = `SELECT * FROM accounts ORDER BY username`
             const values = [];
 
@@ -16,7 +16,7 @@ module.exports = function ({ db }) {
                 } else callback([], accounts);
       });
             },
-*/
+
         getPasswordByUsername: function (username, callback) {
             const query = `SELECT password FROM accounts WHERE username = ? `
 

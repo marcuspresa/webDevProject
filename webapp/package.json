@@ -13,6 +13,7 @@
     "awilix": "^4.2.0",
     "bcryptjs": "^2.4.3",
     "connect-redis": "^3.4.0",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",

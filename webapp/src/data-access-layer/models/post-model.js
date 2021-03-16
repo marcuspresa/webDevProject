@@ -2,7 +2,7 @@ const sequelize = require("../sequelize/db.js")
 const Account = require("./account-model")
 const { DataTypes } = require("sequelize");
 
-const Post = sequelize.define("post", {
+const Post = sequelize.define("posts", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

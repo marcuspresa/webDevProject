@@ -1,18 +1,5 @@
 const accounts = require("../models/account-model.js")
 
-function getAccount(username, callback) {
-	accounts.findOne({
-		where: {
-			username: usernameToFind,
-		}
-	}).then(function (account) {
-		
-		callback(null, account)
-	}).catch(function (error) {
-		callback("No account with specified username " + username, null)
-	})
-}
-
 module.exports = function ({ }) {
 	return {
 		getAllAccounts: function (callback) {
@@ -28,10 +15,22 @@ module.exports = function ({ }) {
 			})
 
 		},
-
+		getAccount: function (username, callback) {
+			accounts.findOne({
+				where: {
+					username: username,
+				}
+			}).then(function (account) {
+				
+				callback(null, account)
+			}).catch(function (error) {
+				callback("No account with specified username " + username, null)
+			})
+		},
+		
 		getPasswordByUsername: function (usernameToCheck, callback) {
 
-			getAccount(usernameToCheck, function (error, account) {		
+			this.getAccount(usernameToCheck, function (error, account) {		
 				callback(error, account.password)
 			})
 
@@ -40,7 +39,7 @@ module.exports = function ({ }) {
 
 		getAccountByUsername: function (usernameToFind, callback) {
 
-			getAccount(usernameToFind, function (error, account) {			
+			this.getAccount(usernameToFind, function (error, account) {			
 				callback(error, account)
 			})
 
@@ -48,11 +47,11 @@ module.exports = function ({ }) {
 		},
 
 
-		createAccount: function (username, password, callback) {
+		createAccount: function (usernameToCheck, password, callback) {
 
-			getAccount(usernameToCheck, function (error, account) {
-				accounts.create({ username: username, password: password }).then(function (createdAccount) {
-					callback(null, createdAccount)
+			this.getAccount(usernameToCheck, function (error, account) {
+				accounts.create({ username: usernameToCheck, password: password }).then(function (account) {
+					callback(null, account)
 
 				}).catch(function (error) {
 					callback("could not create account", null)

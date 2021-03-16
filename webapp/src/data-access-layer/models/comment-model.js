@@ -2,19 +2,23 @@ const sequelize = require("../sequelize/db.js")
 const Post = require("./post-model")
 const { DataTypes } = require("sequelize");
 
-const Comment = sequelize.define("comment", {
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    body: {
-        type: DataTypes.STRING,
+const Comment = sequelize.define('comments', {
+    comment: {
+        type: DataTypes.CHAR,
         allowNull: false
+    },
+    postid: {
+        type: DataTypes.CHAR,
+        allowNull: false,
+        references: 'posts',
+        referencesKey: 'id'
+    },
+    username: {
+        type: DataTypes.CHAR,
+        allowNull: false,
+        references: 'accounts',
+        referencesKey: 'username'
     }
 })
-
-Comment.belongsTo(Post)
-Post.hasMany(Comment)
 
 module.exports = Comment

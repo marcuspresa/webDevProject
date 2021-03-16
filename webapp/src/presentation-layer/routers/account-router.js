@@ -31,15 +31,13 @@ module.exports = function ({ accountManager, accountValidator }) {
 				res.render("accounts-sign-up.hbs", { errors: errors })
 
 			} else {
-				accountManager.generateToken(username, function (error, idToken) {
-					if (error)
-						return res.render("accounts-sign-up.hbs", { errors: [error] })
+				if (error)
+					return res.render("accounts-sign-up.hbs", { errors: [error] })
 
-					req.session.account = account
-					req.session.login = true
-					req.session.token = idToken
-					res.render("home.hbs", { login: true, account: account, token: idToken })
-				})
+				req.session.account = account
+				req.session.login = true
+				res.render("home.hbs", { login: true, account: account })
+
 			}
 		})
 	})
@@ -52,14 +50,11 @@ module.exports = function ({ accountManager, accountValidator }) {
 				res.render("accounts-sign-in.hbs", { error: error })
 			}
 			else {
-				accountManager.generateToken(username, function (error, idToken) {
-					if (error)
-						return res.render("accounts-sign-in.hbs", { errors: [error] })
-					req.session.account = account					
-					req.session.login = true
-					req.session.token = idToken
-					res.render("home.hbs", { login: true, account: account, token: idToken})
-				})
+				if (error)
+					return res.render("accounts-sign-in.hbs", { errors: [error] })
+				req.session.account = account
+				req.session.login = true
+				res.render("home.hbs", { login: true, account: account })
 			}
 		})
 	})
@@ -69,7 +64,7 @@ module.exports = function ({ accountManager, accountValidator }) {
 		response.locals.account = null
 		response.locals.token = null
 		response.locals.login = false
-		response.render("sign-out.hbs" , {login: false })
+		response.render("sign-out.hbs", { login: false })
 	})
 
 	return router

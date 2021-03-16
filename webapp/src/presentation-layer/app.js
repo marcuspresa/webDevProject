@@ -8,7 +8,7 @@ const expressHandlebars = require('express-handlebars')
 const expressSession = require('express-session')
 const path = require('path')
 const bodyParser = require("body-parser")
-
+const cors = require('cors')
 const app = express()
 
 /*Business logic layer*/
@@ -17,13 +17,13 @@ const accountValidator = require('../business-logic-layer/account-validator')
 const postManager = require('../business-logic-layer/post-manager')
 
 /*Database*/ 
-const accountRepository = require('../data-access-layer/sql/account-repository')
-const postRepository = require('../data-access-layer/sql/post-repository')
-const db = require('../data-access-layer/sql/db.js')
+//const accountRepository = require('../data-access-layer/sql/account-repository')
+//const postRepository = require('../data-access-layer/sql/post-repository')
+//const db = require('../data-access-layer/sql/db.js')
 const redisStore = require('connect-redis')(expressSession)
-//const db = require('../seq/db.js')
-//const accountRepositorySeq = require('../seq/account-repository')
-//const databaseFunctionsSeq = require('../seq/database-functions')
+const db = require('../data-access-layer/sequelize/db')
+const accountRepository = require('../data-access-layer/sequelize/account-repository')
+const postRepository = require('../data-access-layer/sequelize/post-repository')
 
 
 /*`Routers*/ 
@@ -77,12 +77,15 @@ app.use(bodyParser.json())
 app.use(express.urlencoded({extended: false}))
 app.set('views', path.join(__dirname, 'views'))
 
+app.use(cors())
+
 app.use(function (req, res, next) {
 	res.setHeader("Access-Control-Allow-Origin", "*")
 	res.setHeader("Access-Control-Allow-Methods", "*")
 	res.setHeader("Access-Control-Allow-Headers", "*")
 	next()
 })
+
 app.use(expressSession({
 	secret: 'forum',
 	resave: false,

@@ -3,7 +3,7 @@ const comment = require("../models/comment-model.js")
 
 module.exports = function () {
 	return {
-		getPostById(id) {
+		getPostWithPostID: function(id, callback) {
 			post.findOne({
 				where: {
 					id: id
@@ -14,7 +14,7 @@ module.exports = function () {
 				callback("No post with given id" + id, null)
 			})
 		},
-		getPostsForAccountId(accountId) {
+		/*getPostsWithAccountId(accountId) {
 			post.findOne({
 				where: {
 					id: accountId
@@ -26,7 +26,7 @@ module.exports = function () {
 				callback("No posts for given account id" + id, null)
 			})
 		
-		},
+		},*/
 
 		getAllPosts: function (callback) {
 			post.findAll({ raw: true }).then(function (allPosts) {
@@ -77,12 +77,6 @@ module.exports = function () {
 				})
 		},
 
-		getPost: function (id, callback) {
-			getPostById(id, function (error, post) {
-				callback(error, post)
-			})
-
-		},
 
 		getPostsWithAccountId: function (id, callback) {
 			getPostsForAccountId(id, function (error, posts) {
@@ -90,11 +84,23 @@ module.exports = function () {
 			})
 		},
 
-		getCommentsWithPostId: function (id, callback) {
-			getPostById(id, function (error, post) {
-				callback(error, post.comments)
+	
+		getCommentsWithPostId: function(id, callback) {
+			console.log("HIT")
+			comment.findAll({
+				where : {
+					postid : id
+				}
+			}).then(function(comment){
+				console.log("Comment: " + comment)
+				callback([], comment)
+			}).catch(function(error){
+				console.log(error)
+				callback(["databaseError"],null)
 			})
-		},
+
+		  },
+	  
 
 		commentOnPostWithPostId: function (id, commentToPost, usernameThatPosted, callback) {
 			comment.create({ comment: commentToPost, username: usernameThatPosted, postId: id })

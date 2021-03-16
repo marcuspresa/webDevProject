@@ -1,30 +1,21 @@
+document.getElementById("create-post-button").addEventListener("click", async function (event) {
+	event.preventDefault()
 
-const { defaultPORT } = require("../config")
-const config = require("../config")
-document.addEventListener("DOMContentLoaded", function(){
+	const postTitle = document.getElementById("post-title").value
+	const postBody = document.getElementById("post-content").value
 	
-	const createPost = document.querySelector("#create-post-page form")
-	
-	createPost.addEventListener("submit", function(event){
-		event.preventDefault()
-		
-		const title = document.getElementById("post-title").value
-		const postContent = document.getElementById("post-content").value
-		
-		fetch(config.defaultURL+":"+defaultPORT+"/api/new-post", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": "Bearer "+accessToken
-			},
-			body: JSON.stringify({title: title, post: postContent, accountId: userInfo.sub, username:userInfo.preferred_username })
-		}).then(function(response){
-			console.log(response)
-		}).catch(function(error){
-			console.log(error)
-			alert(error)
-		})
-		
+	fetch(defaultAddress.URL+":"+defaultAddress.PORT+"/api/posts/new-post", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "Bearer " + accessToken
+		},
+		body: JSON.stringify({ title: postTitle, body: postBody, accountId: userInfo.sub, username: userInfo.preferred_username })
+	}).then(function (response) {
+		console.log(response)
+	}).catch(function (error) {
+		console.log(error)
+		alert(error)
 	})
-	
+
 })

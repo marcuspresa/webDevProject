@@ -29,3 +29,4 @@ services:
       - "3000:80"
     volumes:
       - "./SPA:/SPA"
+      - "./SPA/public:/usr/share/nginx/html"

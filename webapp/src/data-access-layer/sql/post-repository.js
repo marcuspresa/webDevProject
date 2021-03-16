@@ -1,16 +1,15 @@
 module.exports = function ({ db }) {
     return {
-        getAllPosts: function (callback) {
 
+        getAllPosts: function (callback) {
             const query = "SELECT * FROM posts"
             db.query(query, callback)
-
         },
 
-        createPost: function (title, post, username, accountId, callback) {
-
-            const query = "INSERT INTO posts (title, post, username, accountId) VALUES (?,?,?,?)"
-            const values = [title, post, username, accountId]
+        createPost: function (title, body, username, accountId, callback) {
+            console.log(title + body + username + accountId)
+            const query = "INSERT INTO posts (title, body, username, accountId) VALUES (?,?,?,?)"
+            const values = [title, body, username, accountId]
 
             db.query(query, values, function (error, result) {
                 if (error) {
@@ -21,8 +20,10 @@ module.exports = function ({ db }) {
 
             })
         },
+
         editPost: function (id, title, body, callback) {
-            const query = "UPDATE posts SET post = ?, title = ? WHERE id = ?"
+
+            const query = "UPDATE posts SET body = ?, title = ? WHERE id = ?"
             const values = [body, title, id]
             db.query(query, values, function (error, result) {
                 if (error) {
@@ -45,7 +46,7 @@ module.exports = function ({ db }) {
             })
         },
 
-        getPost: function (id, callback) {
+        getPostWithPostID: function (id, callback) {
 
             const query = "SELECT * FROM posts WHERE id = ?"
 
@@ -61,7 +62,12 @@ module.exports = function ({ db }) {
 
             const query = "SELECT * FROM posts WHERE accountId = ?"
 
-            db.query(query, id, callback)
+            db.query(query, id, function (error, result) {
+                if (error) {
+                    callback(error, null)
+                }
+                callback(null, result)
+            })
 
         },
 
@@ -70,8 +76,12 @@ module.exports = function ({ db }) {
 
             const query = "SELECT * FROM comments WHERE postId = ?"
 
-            db.query(query, id, callback)
-
+            db.query(query, id, function (error, result) {
+                if (error) {
+                    callback(error, null)
+                }
+                callback(null, result)
+            })
         },
 
 

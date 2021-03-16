@@ -1,36 +1,16 @@
-const accountValidator = require("../../../business-logic-layer/account-validator")
+const { request } = require("express")
+const jwt = require("jsonwebtoken")
 
-
-exports.authenticate = function (req, res, next) {
+exports.extractToken = function (request, res, next) {
     try {
-        const authorizationHeader = req.get("Authorization")
+        const authorizationHeader = request.get("Authorization")
         if (!authorizationHeader)
             throw new Error("No authorization header")
         const accessTokenString = authorizationHeader.substr("Bearer ".length)
-        accountValidator.validateToken(accessTokenString, function (error, payload) {
-            if (error)
-                throw error
-            req.tokenPayload = payload
+        if (accessTokenString.length > 0) {
+            request.tokenString = accessTokenString
             next()
-        })
-
-    } catch (error) {
-        console.log(error)
-        next(error)
-    }
-}
-
-
-exports.extractToken = function (req, res, next) {
-    try {
-        const authorizationHeader = req.get("Authorization")
-        if (!authorizationHeader)
-            throw new Error("No authorization header")
-        const accessTokenString = authorizationHeader.substr("Bearer ".length)
-        if(accessTokenString.length>0){
-            req.tokenString = accessTokenString
-            next()
-        }else{
+        } else {
             throw new Error("No access token provided")
         }
 
@@ -39,3 +19,19 @@ exports.extractToken = function (req, res, next) {
         next(error)
     }
 }
+
+
+exports.authenticate = function (request, res, next) {
+    try {
+        const authorizationHeader = request.get("Authorization")
+        if (!authorizationHeader)
+            throw new Error("No authorization header")
+        const accessTokenString = authorizationHeader.substr("Bearer ".length)
+        request.payload = jwt.verify(accessTokenString, "5kRh21AucYhm3but2s67jEIWSy1mJekN")
+        next()
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+}
+

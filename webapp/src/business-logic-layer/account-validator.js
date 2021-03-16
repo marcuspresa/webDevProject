@@ -1,8 +1,8 @@
 const MIN_USERNAME_LENGTH = 3
 const MIN_PASSWORD_LENGTH = 6
 const bcrypt = require('bcryptjs')
+const { request } = require('express')
 const jwt = require("jsonwebtoken")
-const JWT_SECRET = "5kRh21AucYhm3but2s67jEIWSy1mJekN"
 
 module.exports = function ({ accountRepository }) {
 	return {
@@ -11,7 +11,7 @@ module.exports = function ({ accountRepository }) {
 			if (username.length < MIN_USERNAME_LENGTH) {
 				errors.push("username must be atleast 3 symbols")
 			}
-			else if(password.length < MIN_PASSWORD_LENGTH) {
+			else if (password.length < MIN_PASSWORD_LENGTH) {
 				errors.push("password must be atleast 6 symbols")
 			}
 
@@ -40,12 +40,6 @@ module.exports = function ({ accountRepository }) {
 				}
 
 			})
-		},
-
-		validateToken: function (accessToken, callback) {
-
-			jwt.verify(accessToken, JWT_SECRET, callback)
-
 		}
 	}
 }

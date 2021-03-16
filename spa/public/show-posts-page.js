@@ -1,12 +1,9 @@
-
-const config = require("../config")
-
+  
 function updateShowPostPage(){
-	
-	fetch(config.defaultURL+":"+defaultPORT+"/api/posts", {
+	fetch(defaultAddress.URL+":"+defaultAddress.PORT+"/api/posts", {
 		method: "GET",
 		headers: {
-			"Authorization": "Bearer "+accessToken
+			"Content-Type": "application/json"
 		},
 	}).then(function(response){
 		return response.json()

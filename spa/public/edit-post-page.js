@@ -1,12 +1,11 @@
 let cachedPostId = null
 
-const config = require("../config")
 
 function updateEditPostPage(postId) {
 
 	cachedPostId = postId
 
-	fetch(config.defaultURL+":"+defaultPORT+"/api/your-post/"+ postId, {
+	fetch(defaultAddress.URL+":"+defaultAddress.PORT+"/api/posts/your-post/" + postId, {
 		method: "GET",
 		headers: {
 			"Authorization": "Bearer " + accessToken
@@ -16,7 +15,7 @@ function updateEditPostPage(postId) {
 	}).then(function (post) {
 
 		document.getElementById("edit-post-title").value = post.title
-		document.getElementById("edit-post-content").value = post.post
+		document.getElementById("edit-post-body").value = post.body
 
 	}).catch(function (error) {
 		console.log(error)
@@ -25,17 +24,16 @@ function updateEditPostPage(postId) {
 
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-
-	const editPostForm = document.querySelector("#edit-post-page form")
+document.getElementById("edit-post-button").addEventListener("click", async function (event) {
 
 	editPostForm.addEventListener("submit", function (event) {
 		event.preventDefault()
 
 		const title = document.getElementById("edit-post-title").value
-		const content = document.getElementById("edit-post-content").value
+		const content = document.getElementById("edit-post-body").value
 
-		fetch("http://192.168.99.100:8080/api/your-post/" + cachedPostId, {
+
+		fetch(defaultAddress.URL+":"+defaultAddress.PORT+"/api/your-post/" + cachedPostId, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

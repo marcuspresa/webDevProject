@@ -37,7 +37,12 @@ input[type=text], input[type=password] {
 <body onload="newPostAlert()">
 
 <div class="content">
+  {{#if error}}
+	<p>Oh no, something went wrong:</p>
 
+	<p>{{error}}</p>
+	
+	{{/if}}
 	<h2>New post</h2>
 	<p>Create a new post the form below.</p>
 

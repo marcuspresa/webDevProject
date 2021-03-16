@@ -3,7 +3,7 @@ const saltRounds = 10
 const jwt = require("jsonwebtoken")
 const JWT_SECRET = "5kRh21AucYhm3but2s67jEIWSy1mJekN"
 
-module.exports = function ({accountRepository,accountValidator}) {
+module.exports = function ({ accountRepository, accountValidator }) {
 	return {
 		getAllAccounts: function (callback) {
 			accountRepository.getAllAccounts(callback)
@@ -14,7 +14,7 @@ module.exports = function ({accountRepository,accountValidator}) {
 				callback(error, account)
 			})
 		},
-	
+
 		generateToken: function (username, callback) {
 			accountRepository.getAccountByUsername(username, function (error, account) {
 				if (error)

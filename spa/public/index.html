@@ -1,99 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <Title>Märketplace shitposting central</Title>
-    <link rel="stylesheet" href="layout.css" />
-    <script src="navigation.js"></script>
-    <script src="sign-up-page.js"></script>
-    <script src="sign-in-page.js"></script>
-    <script src="show-posts-page.js"></script>
-    <script src="edit-post-page.js"></script>
-    <script src="delete-post.js"></script>
-    <script src="create-post-page.js"></script>
-    <script src="your-posts-page.js"></script>
-    <script src="jwt-decode.js"></script>
-  </head>
-  <body>
-    <header>
-      Comment Shitposting Central
-    </header>
 
-    <nav>
+<head>
+</head>
+
+<body>
+  <header>
+    backs
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li class="show-if-not-logged-in"> <a href="/signup">Create Accout</a>
+      </li>
+      <li class="show-if-not-logged-in"><a href="/login">Log in</a></li>
+      <li class="show-if-not-logged-in"><a href="/posts">Posts</a></li>
+      <li class="show-if-logged-in"><a href="/your-posts">Your posts</a></li>
+      <li class="show-if-logged-in"><a href="/create-post">Create posts</a></li>
+      <li class="show-if-logged-in"><a href="/logout">Logout</a></li>
+      <li class="show-if-logged-in">User: <span id="username"></span></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div id="home-page" class="current-page">
+      <h1>Home!</h1>
+      <p>
+        Single page site that was created by me
+      </p>
+    </div>
+    <div id="sign-up-page">
+      <h1>Create account</h1>
+      <p id="signUpError"></p>
+      <div>Username: <input type="text" id="sign-up-username" /></div>
+      <div>Password: <input type="password" id="sign-up-password" /></div>
+      <button id="sign-up-button" type="submit" value="Sign up" class="button is-dark">Sign up!</button>
+    </div>
+
+    <div id="sign-in-page">
+      <h1>Log in</h1>
+      <p id="loginError"></p>
+      <div>Username: <input type="text" id="sign-in-username" /></div>
+      <div>Password: <input type="password" id="sign-in-password" /></div>
+      <button id="sign-in-button" type="submit" value="Sign up" class="button is-dark">Sign in!</button>
+    </div>
+
+    <div id="show-posts-page">
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li class="show-if-not-logged-in">
-          <a href="/signup">Create Accout</a>
-        </li>
-        <li class="show-if-not-logged-in"><a href="/login">Log in</a></li>
-        <li class="show-if-logged-in">
-          <a href="/your-comments">Your comments</a>
-        </li>
-        <li class="show-if-logged-in">
-          <a href="/create-comment">Create comment</a>
-        </li>
-        <li class="show-if-logged-in">User: <span id="username"></span></li>
+        <!--print all posts-->
       </ul>
-    </nav>
+    </div>
 
-    <main>
-      <div id="home-page" class="current-page">
-        <h1>Home!</h1>
-        <p>
-          Single page site
-        </p>
-      </div>
+    <div id="your-posts-page">
+      <h1>Your posts</h1>
+      <p>Here is all your posts:</p>
+      <ul>
+        <!--print posts-->
+      </ul>
+    </div>
 
-      <div id="sign-up-page">
-        <h1>Create account</h1>
-        <form>
-          <div>Username: <input type="text" id="sign-up-username" /></div>
-          <div>Password: <input type="password" id="sign-up-password" /></div>
-          <input type="submit" value="Create account!" />
-        </form>
-      </div>
+    <div id="create-post-page">
+      <hr>
+      <label for="Title"><b>Title</b></label>
+      <input type="text" placeholder="Enter Title" id="post-title" required>
+      <label for="Post"><b>Post</b></label>
+      <input type="text" placeholder="Enter Post" id="post-content" required>
+      <button id="create-post-button" type="submit">Create</button>
+      <hr>
+    </div>
 
-      <div id="sign-in-page">
-        <h1>Log in</h1>
-        <p id="loginError"></p>
-        <form>
-          <div>Username: <input type="text" id="sign-in-username" /></div>
-          <div>Password: <input type="password" id="sign-in-password" /></div>
-          <input type="submit" value="Login" />
-        </form>
-      </div>
+    <div class="card" id="edit-post-page">
+      <h1>Edit Post!</h1>
+      <form>
+        <div>
+          Title: <input type ="text" id="edit-post-title">
+          body: <input type="text" id="edit-post-body">
+          <button id="edit-post-button" type="submit">Edit</button>
+        </div>
+  </div>
 
-      <div id="your-posts-page">
-        <h1>Your comments</h1>
-        <p>Here is all your comments:</p>
-        <ul>
-          <!--print comments-->
-        </ul>
-      </div>
-
-      <div id="edit-post-page">
-        <h1>Edit post</h1>
-
-        <form>
-          <div>Post: <input type="text" id="edit-post-body" /></div>
-          <input type="submit" value="Update post" />
-        </form>
-      </div>
-  
-      <div id="create-new-post">
-          <h1>Create post</h1>
-          <form>
-              <div>
-                  Comment: <input type ="text" id="new-post">
-              </div>
-              <input type="submit" value="Post">
-          </form>
-      </div>
+    <div id="create-new-post">
+      <h1>Create post</h1>
+      <form>
+        <div>
+          Comment: <input type="text" id="new-post">
+        </div>
+        <input type="submit" value="Post">
+      </form>
+    </div>
 
 
 
-    </main>
-  </body>
+  </main>
+</body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bacsh</title>
+<link rel="stylesheet" type="text/css" href="layout.css">
+<script src="config.js"></script>
+<script src="navigation.js"></script>
+<script src="sign-up-page.js"></script>
+<script src="sign-in-page.js"></script>
+<script src="your-posts-page.js"></script>
+<script src="show-posts-page.js"></script>
+<script src="edit-post-page.js"></script>
+<script src="delete-post.js"></script>
+<script src="create-post-page.js"></script>
+<script src="jwt-decode.js"></script>
+
 </html>
