@@ -1,49 +1,43 @@
 const post = require("../models/post-model.js")
 const comment = require("../models/comment-model.js")
+const Sequelize = require('sequelize')
 
 module.exports = function () {
 	return {
-		getPostWithPostID: function(id, callback) {
+		getPostWithPostID: function (id, callback) {
 			post.findOne({
+				raw: true,
 				where: {
 					id: id
 				}
 			}).then(function (post) {
 				callback(null, post)
 			}).catch(function (error) {
-				callback("No post with given id" + id, null)
+				callback("No post with given id", null)
 			})
 		},
-		/*getPostsWithAccountId(accountId) {
-			post.findOne({
-				where: {
-					id: accountId
-				},
-				raw: true
-			}).then(function (posts) {
-				callback(null, posts)
-			}).catch(function (error) {
-				callback("No posts for given account id" + id, null)
-			})
-		
-		},*/
 
 		getAllPosts: function (callback) {
 			post.findAll({ raw: true }).then(function (allPosts) {
 				callback(null, allPosts)
-
 			}).catch(function (error) {
 				callback("Could not get all posts", null)
 			})
 		},
 
-		createPost: function (title, post, username, accountId, callback) {
-			post.create({ title: title, post: post, username: username, accountId: accountId }).then(function (createdPost) {
-				callback(null, createdPost)
-			}).catch(function (error) {
-				callback("could not create post", null)
+		createPost: function (title, body, username, accountId, callback) {
+			post.create({
+				title: title,
+				body: body,
+				username: username,
+				accountId: accountId
 			})
-
+				.then(function (createdPost) {
+					callback(null, createdPost.id);
+				})
+				.catch(function (error) {
+					callback(["Something went wrong when creating the post"], null);
+				});
 		},
 
 		editPost: function (body, id, title, callback) {
@@ -84,29 +78,30 @@ module.exports = function () {
 			})
 		},
 
-	
-		getCommentsWithPostId: function(id, callback) {
-			console.log("HIT")
+
+		getCommentsWithPostId: function (id, callback) {
 			comment.findAll({
-				where : {
-					postid : id
+				raw: true,
+				where: {
+					postid: id
 				}
-			}).then(function(comment){
+			}).then(function (comment) {
 				console.log("Comment: " + comment)
 				callback([], comment)
-			}).catch(function(error){
+			}).catch(function (error) {
 				console.log(error)
-				callback(["databaseError"],null)
+				callback(["databaseError"], null)
 			})
 
-		  },
-	  
+		},
 
-		commentOnPostWithPostId: function (id, commentToPost, usernameThatPosted, callback) {
-			comment.create({ comment: commentToPost, username: usernameThatPosted, postId: id })
+
+		createCommentOnPostId: function (id, commentToPost, usernameThatPosted, callback) {
+			comment.create({ comment: commentToPost, username: usernameThatPosted, postid: id })
 				.then(function (comment) {
 					callback(null, comment)
 				}).catch(function (error) {
+					console.log(error)
 					callback("Could not create comment ", null)
 				})
 		}

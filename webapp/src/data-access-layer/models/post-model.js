@@ -3,21 +3,21 @@ const Account = require("./account-model")
 const { DataTypes } = require("sequelize");
 
 const Post = sequelize.define("posts", {
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    title: {
-        type: DataTypes.STRING,
+    title : {
+        type: DataTypes.CHAR,
         allowNull: false
     },
     body: {
-        type: DataTypes.STRING,
+        type: DataTypes.CHAR,
         allowNull: false
     },
+    username: {
+        type: DataTypes.CHAR,
+        allowNull: false
+    }
+    
 })
 
 Post.belongsTo(Account)
 
-module.exports = Post 
+module.exports = Post

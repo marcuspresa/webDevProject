@@ -37,6 +37,7 @@ module.exports = function ({ postManager }) {
 				console.log("APA")
 				return response.render("new-post.hbs", { error: error })
 			}
+			console.log("createdPostId")
 			response.redirect("/posts/" + createdPostId)
 		})
 
@@ -49,7 +50,6 @@ module.exports = function ({ postManager }) {
 				return response.render('post.hbs', { error: error })
 			}
 			postManager.getCommentsWithPostId(id, function (error, comments) {
-				console.log(post.body + "apa2")
 				const model = {
 					post: post,
 					comments: comments,

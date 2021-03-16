@@ -50,7 +50,7 @@
 
   <div class="card" id="card-class">
 
-
+    
     <span class="left"><strong>{{post.title}}</strong></span>
     <br>
     <br>
@@ -77,7 +77,7 @@
 
   {{#each comments}}
 
-  <p>{{username}}: {{comment}}</p>
+  <p>{{this.username}}: {{this.comment}}</p>
 
   {{/each}}
 

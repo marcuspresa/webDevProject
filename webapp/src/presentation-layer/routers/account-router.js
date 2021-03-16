@@ -27,11 +27,11 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const username = req.body.username
 		const password = req.body.password
 		accountManager.createAccount(username, password, function (errors, account) {
-			if (errors) {
+			if (errors != null) {
 				res.render("accounts-sign-up.hbs", { errors: errors })
 
 			} else {
-				if (error)
+				if (errors != null)
 					return res.render("accounts-sign-up.hbs", { errors: [error] })
 
 				req.session.account = account

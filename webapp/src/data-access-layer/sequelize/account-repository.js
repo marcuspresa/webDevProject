@@ -15,8 +15,11 @@ module.exports = function ({ }) {
 			})
 
 		},
-		getAccount: function (username, callback) {
+
+		getAccountByUsername: function (username, callback) {
+			console.log("fastar i getAccount")
 			accounts.findOne({
+				raw: true,
 				where: {
 					username: username,
 				}
@@ -24,36 +27,55 @@ module.exports = function ({ }) {
 				
 				callback(null, account)
 			}).catch(function (error) {
-				callback("No account with specified username " + username, null)
+				console.log(error)
+				callback("No account with specified username ", null)
 			})
 		},
-		
-		getPasswordByUsername: function (usernameToCheck, callback) {
-
-			this.getAccount(usernameToCheck, function (error, account) {		
-				callback(error, account.password)
-			})
-
-		},
-
-
+/*
 		getAccountByUsername: function (usernameToFind, callback) {
 
-			this.getAccount(usernameToFind, function (error, account) {			
-				callback(error, account)
+				accounts.findOne({
+				where: {
+					username: username,
+				}
+			}).then(function (account) {
+				
+				callback(null, account)
+			}).catch(function (error) {
+				console.log(error)
+				callback("No account with specified username " + username, null)
 			})
 
+		},*/
+		
+		getPasswordByUsername: function (username, callback) {
 
+			accounts.findOne({
+				raw: true,
+				where: { username: username },
+			  })
+				.then(function(account) {
+				  if (!account.password.length) {
+					callback(["No password"], null);
+				  } else {
+					callback(null, account.password);
+				  }
+				})
+				.catch(function(error) {
+					console.log(error)
+				  callback(["dbError"], null);
+				});
 		},
 
 
 		createAccount: function (usernameToCheck, password, callback) {
 
-			this.getAccount(usernameToCheck, function (error, account) {
+			this.getAccountByUsername(usernameToCheck, function (error, account) {
 				accounts.create({ username: usernameToCheck, password: password }).then(function (account) {
 					callback(null, account)
 
 				}).catch(function (error) {
+					console.log(error)
 					callback("could not create account", null)
 				})
 
