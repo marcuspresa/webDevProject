@@ -1,6 +1,5 @@
 const post = require("../models/post-model.js")
 const comment = require("../models/comment-model.js")
-const Sequelize = require('sequelize')
 
 module.exports = function () {
 	return {
@@ -73,8 +72,16 @@ module.exports = function () {
 
 
 		getPostsWithAccountId: function (id, callback) {
-			getPostsForAccountId(id, function (error, posts) {
-				callback(error, posts)
+			post.findAll({
+				raw: true,
+				where: {
+					accountId: id
+				}
+			}).then(function (posts) {
+				callback(null, posts)
+			}).catch(function (error) {
+				console.log(error)
+				callback(["databaseError"], null)
 			})
 		},
 
@@ -87,7 +94,7 @@ module.exports = function () {
 				}
 			}).then(function (comment) {
 				console.log("Comment: " + comment)
-				callback([], comment)
+				callback(null, comment)
 			}).catch(function (error) {
 				console.log(error)
 				callback(["databaseError"], null)

@@ -20,6 +20,7 @@ const Comment = sequelize.define('comments', {
         references: 'accounts',
         referencesKey: 'username'
     }
+    
 })
 
 

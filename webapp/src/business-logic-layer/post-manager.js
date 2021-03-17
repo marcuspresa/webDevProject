@@ -19,10 +19,9 @@ module.exports = function ({ postRepository, accountValidator }) {
 		createPost: function (title, body, username, accountId, callback) {
 			if (!title || title.length == 0) return callback("Title cannot be empty", null)
 			if (!body || body.length == 0) return callback("Body cannot be empty", null)
-			if (!username || title.username == 0) return callback("username cannot be empty", null)
-			if (!accountId || body.accountId == 0) return callback("accountId cannot be empty", null)
+			if (!username || username.length == 0) return callback("username cannot be empty", null)
+			if (!accountId || accountId.length == 0) return callback("accountId cannot be empty", null)
 			postRepository.createPost(title, body, username, accountId, callback)
-
 		},
 
 		getCommentsWithPostId: function (id, callback) {
@@ -40,7 +39,7 @@ module.exports = function ({ postRepository, accountValidator }) {
 
 		editPost: function (accountId, id, title, body, callback) {
 			postRepository.getPostWithPostID(id, function (error, checkPost) {
-				if (error)
+				if (error != null)
 					return callback(error, null)
 
 				if (checkPost.accountId == accountId) {
@@ -83,7 +82,6 @@ module.exports = function ({ postRepository, accountValidator }) {
 			accountValidator.validateToken(token, function (tokenError, payload) {
 				if (tokenError)
 					return callback("invalid token", null)
-
 				if (payload) {
 					postRepository.getPost(id, function (error, checkPost) {
 						if (error)

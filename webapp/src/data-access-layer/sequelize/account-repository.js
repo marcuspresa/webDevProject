@@ -17,7 +17,6 @@ module.exports = function ({ }) {
 		},
 
 		getAccountByUsername: function (username, callback) {
-			console.log("fastar i getAccount")
 			accounts.findOne({
 				raw: true,
 				where: {
@@ -31,22 +30,6 @@ module.exports = function ({ }) {
 				callback("No account with specified username ", null)
 			})
 		},
-/*
-		getAccountByUsername: function (usernameToFind, callback) {
-
-				accounts.findOne({
-				where: {
-					username: username,
-				}
-			}).then(function (account) {
-				
-				callback(null, account)
-			}).catch(function (error) {
-				console.log(error)
-				callback("No account with specified username " + username, null)
-			})
-
-		},*/
 		
 		getPasswordByUsername: function (username, callback) {
 
