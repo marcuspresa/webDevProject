@@ -65,6 +65,7 @@ module.exports = function ({ postRepository, accountValidator }) {
 			})
 
 		},
+		
 
 		getPostWithPostID: function (id, callback) {
 			postRepository.getPostWithPostID(id, function (error, post) {

@@ -45,12 +45,24 @@
 
 
   <a class="button is-primary" href="/posts">Back</a>
+  {{#if isOwner}}
+  {{#ifEquals post.accountId account.id}}
 
+  <form action="/posts/{{post.id}}/delete" method="POST">
+    <button class="button is-danger" id="deleteButton" type="submit">Delete post</button>
+  </form>
+
+  {{!-- <a class="button is-warning " id="editButton" href="/posts/{{post.id}}/edit">Edit post</a> --}}
+
+
+
+  {{/ifEquals}}
+  {{/if}}
   <hr>
 
   <div class="card" id="card-class">
 
-    
+
     <span class="left"><strong>{{post.title}}</strong></span>
     <br>
     <br>
