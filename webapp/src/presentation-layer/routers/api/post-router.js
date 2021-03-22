@@ -32,9 +32,7 @@ module.exports = function ({ postManager }) {
 
     router.delete("/delete/:id", apiMiddlewares.authenticate, function (request, response) {
         const id = request.params.id
-        /**
-         * Här används payload account ID tror inte det görs rätt
-         */
+
         if (request.payload != null) {
             postManager.deletePost(request.payload.accountId, id, function (error) {
                 if (error != null) {
@@ -61,31 +59,40 @@ module.exports = function ({ postManager }) {
             )
         })
     })
-	router.get("/your-post/:id",apiMiddlewares.authenticate, function (request, response) {
-		const id = request.params.id
-		postManager.getPostWithPostID(id, function (errors, post) {
-			if (errors != null) {
-				response.status(500).end()
-			} else {
-				if (request.payload.accountId != post.accountId) {
-					response.status(401).end()
-					return
-				} else {
-					response.status(200).json(post)
-				}
+    router.get("/your-post/:id", apiMiddlewares.authenticate, function (request, response) {
+        const id = request.params.id
+        postManager.getPostWithPostID(id, function (errors, post) {
+            if (errors != null) {
+                response.status(500).end()
+            } else {
+                if (request.payload.accountId != post.accountId) {
+                    response.status(401).end()
+                    return
+                } else {
+                    response.status(200).json(post)
+                }
 
-			}
+            }
 
-		})
-	})
-    router.put("/:id", apiMiddlewares.authenticate, function (request, response) {
+        })
+    })
+    router.put("/edit/:id", apiMiddlewares.authenticate, function (request, response) {
         const id = request.params.id
         const title = request.body.title
-        const post = request.body.post
+        const body = request.body.body
         const accountID = request.body.accountId
-
+        postManager.editPost(body, id, title, accountID, function (error) {
+            if (error != null) {
+                response.status(400).end()
+                return
+            }
+            else {
+                response.status(200).end()
+                return
+            }
+        })
     })
 
 
-    return router
+return router
 }

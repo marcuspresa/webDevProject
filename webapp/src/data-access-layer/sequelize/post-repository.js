@@ -12,7 +12,7 @@ module.exports = function () {
 			}).then(function (post) {
 				callback(null, post)
 			}).catch(function (error) {
-				callback("No post with given id", null)
+				callback(error, null)
 			})
 		},
 
@@ -35,11 +35,12 @@ module.exports = function () {
 					callback(null, createdPost.id);
 				})
 				.catch(function (error) {
-					callback(["Something went wrong when creating the post"], null);
+					callback("Something went wrong when creating the post", null);
 				});
 		},
 
-		editPost: function (body, id, title, callback) {
+		editPost: function (id, title, body, callback) {
+			console.log(body + title + "kommer hit")
 			post.update(
 				{
 					body: body,

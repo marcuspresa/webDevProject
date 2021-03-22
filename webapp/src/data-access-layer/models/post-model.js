@@ -14,12 +14,6 @@ const Post = sequelize.define("posts", {
     username: {
         type: DataTypes.CHAR,
         allowNull: false
-    }, 
-    accountId : {
-        type: DataTypes.CHAR,
-        allowNull: false,
-        references: 'accounts',
-        referencesKey: 'id'
     }
     
 })

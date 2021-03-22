@@ -12,13 +12,15 @@ const Comment = sequelize.define('comments', {
         type: DataTypes.CHAR,
         allowNull: false,
         references: 'posts',
+        onDelete: 'cascade',
         referencesKey: 'id'
     },
     username : {
         type: DataTypes.CHAR,
         allowNull: false,
         references: 'accounts',
-        referencesKey: 'username'
+        referencesKey: 'username',
+        onDelete: 'cascade' 
     }
     
 })

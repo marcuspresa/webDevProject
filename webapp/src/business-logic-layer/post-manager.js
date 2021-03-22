@@ -37,12 +37,12 @@ module.exports = function ({ postRepository, accountValidator }) {
 			}
 		},
 
-		editPost: function (accountId, id, title, body, callback) {
+		editPost: function (body, id, title, accountID, callback) {
 			postRepository.getPostWithPostID(id, function (error, checkPost) {
-				if (error != null)
+				if (error != null){
 					return callback(error, null)
-
-				if (checkPost.accountId == accountId) {
+				}
+				if (checkPost.accountId == accountID) {
 					postRepository.editPost(id, title, body, callback)
 				} else {
 					callback("Not your post", null)
@@ -70,7 +70,6 @@ module.exports = function ({ postRepository, accountValidator }) {
 			postRepository.getPostWithPostID(id, function (error, post) {
 				if (error) return callback(error, null)
 				if (!post) return callback("No post with id " + id, null)
-				console.log(post + "apa1")
 				callback(null, post)
 			})
 		},
