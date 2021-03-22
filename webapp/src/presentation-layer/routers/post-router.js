@@ -34,10 +34,9 @@ module.exports = function ({ postManager }) {
 		const username = request.session.account.username
 		postManager.createPost(title, body, username, accountId, function (error, createdPostId) {
 			if (error) {
-				console.log("APA")
 				return response.render("new-post.hbs", { error: error })
 			}
-			console.log("createdPostId")
+			request.session.notification = "Post has been created successfully" 
 			response.redirect("/posts/" + createdPostId)
 		})
 
@@ -63,23 +62,19 @@ module.exports = function ({ postManager }) {
 	})
 
 	router.post("/:id", function (request, response) {
+
 		const id = request.params.id
 		const comment = request.body.comment
 		postManager.getPostWithPostID(id, function (error, post) {
+			if (error) {
+				return response.render("post.hbs", { error })
+			}
 			postManager.createCommentOnPostId(id, comment, request.session.account.username, function (error) {
 				if (error) {
-					return response.render('post.hbs', { error: error })
-				} else {
-					postManager.getCommentsWithPostId(id, function (error, comments) {
-						const model = {
-							error: error,
-							post: post,
-							comments: comments,
-							login: request.session.login
-						}
-						response.render('post.hbs', model)
-					})
+					return response.render("post.hbs", { error })
 				}
+				request.session.notification = "Comment has been posted successfully" 
+				response.redirect('/posts/' + post.id)
 			})
 		})
 	})

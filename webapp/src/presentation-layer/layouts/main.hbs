@@ -50,18 +50,17 @@
 			</div>
 		</nav>
 
-		{{#if error}}
-		<div class="notification is-danger">
-			{{{error}}}
+		{{#if notification}}
+		<div class="notification is-{{{notificationType}}}">
+			{{{notification}}}
 		</div>
 		{{/if}}
-
 
 		<main>{{{body}}}</main>
 
 		<footer class="footer">
 			<div class="content has-text-centered">
-				| Copyright © 
+				| Copyright ©
 			</div>
 		</footer>
 

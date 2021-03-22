@@ -28,7 +28,7 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const password = req.body.password
 		accountManager.createAccount(username, password, function (errors, account) {
 			if (errors != null) {
-				res.render("accounts-sign-up.hbs", { errors: errors })
+				res.render("accounts-sign-up.hbs", { errors: errors, notification: errors, notificationType: "danger" })
 
 			} else {
 				if (errors != null)
@@ -36,7 +36,7 @@ module.exports = function ({ accountManager, accountValidator }) {
 
 				req.session.account = account
 				req.session.login = true
-				res.render("home.hbs", { login: true, account: account })
+				res.render("home.hbs", { login: true, account: account, notification: "Signed up successfully", notificationType: "success"  })
 
 			}
 		})
@@ -47,14 +47,14 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const password = req.body.password
 		accountValidator.checkCredentials(username, password, function (error, account) {
 			if (error) {
-				res.render("accounts-sign-in.hbs", { error: error })
+				res.render("accounts-sign-in.hbs", { error: error, notification: error, notificationType: "danger"})
 			}
 			else {
 				if (error)
 					return res.render("accounts-sign-in.hbs", { errors: [error] })
 				req.session.account = account
 				req.session.login = true
-				res.render("home.hbs", { login: true, account: account })
+				res.render("home.hbs", { login: true, account: account, notification: "Signed in successfully", notificationType: "success"})
 			}
 		})
 	})
@@ -64,7 +64,7 @@ module.exports = function ({ accountManager, accountValidator }) {
 		response.locals.account = null
 		response.locals.token = null
 		response.locals.login = false
-		response.render("sign-out.hbs", { login: false })
+		response.render("sign-out.hbs", { login: false, notification: "Signed out successfully", notificationType: "success"})
 	})
 
 	return router

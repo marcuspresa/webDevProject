@@ -118,6 +118,23 @@ app.use(function (req, res, next) {
 	next()
 })
 
+//Notifaction middleware
+app.use(function (req, res, next) {
+	if (req.session.notification) {
+		res.locals.notification = req.session.notification
+
+		if (req.session.notificationType) {
+			res.locals.notificationType = req.session.notificationType
+			delete req.session.notificationType
+		} else {
+			res.locals.notificationType = "success"
+		}
+
+		delete req.session.notification
+	}
+	next()
+})
+
 app.use('/', theVariousRouter)
 app.use('/accounts', theAccountRouter)
 app.use('/posts', thePostRouter)

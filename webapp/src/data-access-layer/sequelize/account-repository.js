@@ -23,30 +23,33 @@ module.exports = function ({ }) {
 					username: username,
 				}
 			}).then(function (account) {
-				
+
 				callback(null, account)
 			}).catch(function (error) {
 				console.log(error)
 				callback("No account with specified username ", null)
 			})
 		},
-		
+
 		getPasswordByUsername: function (username, callback) {
 
 			accounts.findOne({
 				raw: true,
 				where: { username: username },
-			  })
-				.then(function(account) {
-				  if (!account.password.length) {
-					callback(["No password"], null);
-				  } else {
-					callback(null, account.password);
-				  }
+			})
+				.then(function (account) {
+					if (account == null) {
+						return callback(["No such account exists"], null)
+					}
+					if (!account.password.length) {
+						callback(["No password"], null);
+					} else {
+						callback(null, account.password);
+					}
 				})
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error)
-				  callback(["dbError"], null);
+					callback(["Someting went wrong in the database!"], null);
 				});
 		},
 
