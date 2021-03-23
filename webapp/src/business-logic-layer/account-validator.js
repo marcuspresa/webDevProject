@@ -1,8 +1,7 @@
 const MIN_USERNAME_LENGTH = 3
 const MIN_PASSWORD_LENGTH = 6
 const bcrypt = require('bcryptjs')
-const { request } = require('express')
-const jwt = require("jsonwebtoken")
+
 
 module.exports = function ({ accountRepository }) {
 	return {
@@ -26,13 +25,10 @@ module.exports = function ({ accountRepository }) {
 		checkCredentials: function (username, password, callback) {
 			accountRepository.getPasswordByUsername(username, function (error, hash) {
 				if (error != null) {
-					console.log(error + "APA")
 					callback(error, null)
 				}
 				else {
-					console.log("Innan bcrypt")
 					bcrypt.compare(password, hash, function (bcryptError, result) {
-						console.log(result + "bcryptcompare")
 						if (result) {
 							accountRepository.getAccountByUsername(username, callback)
 						}

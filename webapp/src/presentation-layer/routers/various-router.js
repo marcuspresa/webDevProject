@@ -3,7 +3,7 @@ const express = require('express')
 
 module.exports = function () {
 	const router = express.Router()
-	
+
 	router.use(express.urlencoded({ extended: false }))
 
 	router.get("/", function (request, response) {
@@ -15,13 +15,13 @@ module.exports = function () {
 	})
 
 	router.get("/new-post", function (request, response) {
-		if(request.session.login == true){
-			response.render("new-post.hbs", {login: request.session.login})
+		if (request.session.login == true) {
+			response.render("new-post.hbs", { login: request.session.login })
 		}
-		else{
+		else {
 			response.redirect("/accounts/sign-in")
 		}
-		
+
 	})
 
 	return router

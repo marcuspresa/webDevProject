@@ -16,7 +16,7 @@ const accountManager = require('../business-logic-layer/account-manager')
 const accountValidator = require('../business-logic-layer/account-validator')
 const postManager = require('../business-logic-layer/post-manager')
 
-/*Database*/ 
+/*Database*/
 //const accountRepository = require('../data-access-layer/sql/account-repository')
 //const postRepository = require('../data-access-layer/sql/post-repository')
 //const db = require('../data-access-layer/sql/db.js')
@@ -26,7 +26,7 @@ const accountRepository = require('../data-access-layer/sequelize/account-reposi
 const postRepository = require('../data-access-layer/sequelize/post-repository')
 
 
-/*`Routers*/ 
+/*`Routers*/
 const variousRouter = require('./routers/various-router')
 const accountRouter = require('./routers/account-router')
 const apiRouter = require('./routers/api/api-router')
@@ -35,7 +35,7 @@ const postRouter = require('./routers/post-router')
 
 
 
-/*Awilix containers*/ 
+/*Awilix containers*/
 const container = awilix.createContainer()
 container.register("postRepository", awilix.asFunction(postRepository))
 container.register("db", awilix.asValue(db))
@@ -61,10 +61,10 @@ app.engine('hbs', expressHandlebars({
 	defaultLayout: 'main',
 	helpers: {
 		ifEquals: function (val1, val2, options) {
-			if(val1 == val2) {
+			if (val1 == val2) {
 				return options.fn(this);
-			  }
-			  return options.inverse(this)
+			}
+			return options.inverse(this)
 		}
 	},
 	layoutsDir: path.join(__dirname, 'layouts')
@@ -72,13 +72,14 @@ app.engine('hbs', expressHandlebars({
 
 // Handle static files in the public folder.
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 app.set('views', path.join(__dirname, 'views'))
 
 app.use(cors())
 
+// ta bort detta
 app.use(function (req, res, next) {
 	res.setHeader("Access-Control-Allow-Origin", "*")
 	res.setHeader("Access-Control-Allow-Methods", "*")
@@ -124,11 +125,11 @@ app.use('/posts', thePostRouter)
 
 
 // Start listening for incoming HTTP requests!
-app.listen(8080, function () {
-})
+app.listen(8080, function () {})
 
 app.use(function (req, res, next) {
 	if (res.status(404)) {
 		res.send('404: File Not Found :(')
 	}
+	//lägg till 500
 })

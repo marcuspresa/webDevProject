@@ -34,10 +34,8 @@ module.exports = function ({ postManager }) {
 		const username = request.session.account.username
 		postManager.createPost(title, body, username, accountId, function (error, createdPostId) {
 			if (error) {
-				console.log("APA")
 				return response.render("new-post.hbs", { error: error })
 			}
-			console.log("createdPostId")
 			response.redirect("/posts/" + createdPostId)
 		})
 
@@ -66,7 +64,7 @@ module.exports = function ({ postManager }) {
 		const id = request.params.id
 		const comment = request.body.comment
 		postManager.getPostWithPostID(id, function (error, post) {
-			postManager.createCommentOnPostId(id, comment, request.session.account.username, function (error) {
+			postManager.createCommentOnPostId(id, comment, request.session.account.username, request.session.account.id, function (error) {
 				if (error) {
 					return response.render('post.hbs', { error: error })
 				} else {

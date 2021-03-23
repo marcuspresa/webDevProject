@@ -1,5 +1,3 @@
-const { request } = require("express")
-const postRepository = require("../data-access-layer/sql/post-repository")
 
 module.exports = function ({ postRepository, accountValidator }) {
 	return {
@@ -28,12 +26,13 @@ module.exports = function ({ postRepository, accountValidator }) {
 			postRepository.getCommentsWithPostId(id, callback)
 		},
 
-		createCommentOnPostId: function (id, comment, username, callback) {
+		createCommentOnPostId: function (id, comment, username, accountId, callback) {
+			console.log("apa2" + accountId)
 			if (username == null && comment == null) {
 				return callback(new Error("Could not create comment"), null)
 			}
 			else {
-				postRepository.createCommentOnPostId(id, comment, username, callback)
+				postRepository.createCommentOnPostId(id, comment, username, accountId, callback)
 			}
 		},
 
@@ -75,28 +74,6 @@ module.exports = function ({ postRepository, accountValidator }) {
 		},
 		getPostsWithAccountId: function (id, callback) {
 			postRepository.getPostsWithAccountId(id, callback)
-		},
-
-		getPostCheckOwner: function (token, id, callback) {
-			accountValidator.validateToken(token, function (tokenError, payload) {
-				if (tokenError)
-					return callback("invalid token", null)
-				if (payload) {
-					postRepository.getPost(id, function (error, checkPost) {
-						if (error)
-							return callback(error, null)
-
-						if (checkPost.accountId == payload.sub) {
-							callback(null, checkPost)
-						} else {
-							callback("Not your post", null)
-						}
-
-					})
-				}
-
-			})
-
 		},
 
 	}

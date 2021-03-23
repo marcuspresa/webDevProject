@@ -7,7 +7,6 @@ module.exports = function ({ db }) {
         },
 
         createPost: function (title, body, username, accountId, callback) {
-            console.log(title + body + username + accountId)
             const query = "INSERT INTO posts (title, body, username, accountId) VALUES (?,?,?,?)"
             const values = [title, body, username, accountId]
 
@@ -78,6 +77,7 @@ module.exports = function ({ db }) {
 
             db.query(query, id, function (error, result) {
                 if (error) {
+                    console.log(error + "APA")
                     callback(error, null)
                 }
                 callback(null, result)
@@ -85,10 +85,10 @@ module.exports = function ({ db }) {
         },
 
 
-        createCommentOnPostId: function (id, comment, username, callback) {
+        createCommentOnPostId: function (id, comment, username, accountId, callback) {
 
-            const query = "INSERT INTO comments (comment, postId, username) VALUES (?,?,?)"
-            const values = [comment, id, username]
+            const query = "INSERT INTO comments (comment, postId, username, accountId) VALUES (?,?,?,?)"
+            const values = [comment, id, username, accountId]
 
             db.query(query, values, function (error) {
                 if (error) {

@@ -27,6 +27,7 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const username = req.body.username
 		const password = req.body.password
 		accountManager.createAccount(username, password, function (errors, account) {
+			/**Här fixas */
 			if (errors != null) {
 				res.render("accounts-sign-up.hbs", { errors: errors })
 
@@ -46,6 +47,9 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const username = req.body.username
 		const password = req.body.password
 		accountValidator.checkCredentials(username, password, function (error, account) {
+			/*
+			två error
+			*/
 			if (error) {
 				res.render("accounts-sign-in.hbs", { error: error })
 			}
@@ -62,7 +66,6 @@ module.exports = function ({ accountManager, accountValidator }) {
 	router.get("/sign-out", function (request, response) {
 		request.session.destroy()
 		response.locals.account = null
-		response.locals.token = null
 		response.locals.login = false
 		response.render("sign-out.hbs", { login: false })
 	})

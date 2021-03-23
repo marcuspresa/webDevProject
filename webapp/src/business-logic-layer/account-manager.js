@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs')
 const saltRounds = 10
 const jwt = require("jsonwebtoken")
-const JWT_SECRET = "5kRh21AucYhm3but2s67jEIWSy1mJekN"
+const jwtSecret = "5kRh21AucYhm3but2s67jEIWSy1mJekN"
 
 module.exports = function ({ accountRepository, accountValidator }) {
 	return {
@@ -22,7 +22,7 @@ module.exports = function ({ accountRepository, accountValidator }) {
 				jwt.sign({
 					sub: account.id,
 					username: username
-				}, JWT_SECRET, { algorithm: 'HS256' }, callback)
+				}, jwtSecret, { algorithm: 'HS256' }, callback)
 
 			})
 		},

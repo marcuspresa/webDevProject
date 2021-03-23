@@ -1,5 +1,5 @@
 function getYourPost() {
-	fetch(defaultAddress.URL+":"+defaultAddress.PORT+"/api/posts/your-posts/" + userInfo.sub, {
+	fetch(defaultAddress.URL + ":" + defaultAddress.PORT + "/api/posts/your-posts/" + userInfo.sub, {
 		method: "GET",
 		headers: {
 			"Authorization": "Bearer " + accessToken
@@ -20,20 +20,20 @@ function getYourPost() {
 			editLink.innerText = post.title
 			space.innerText = "   "
 			buttonDelete.innerText = "delete"
-			
+
 			editLink.setAttribute("href", "/your-post/" + post.id)
 			buttonDelete.setAttribute("href", "/delete/" + post.id)
 			editLink.addEventListener("click", listenClickOnAnchor)
 			buttonDelete.addEventListener("click", listenClickOnAnchor)
-			
+
 			li.appendChild(title)
 			li.appendChild(editLink)
 			li.appendChild(space)
 			li.appendChild(buttonDelete)
 			ul.appendChild(li)
-		
+
 		}
-		
+
 	}).catch(function (error) {
 		console.log(error)
 	})

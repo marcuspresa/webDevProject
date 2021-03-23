@@ -2,7 +2,7 @@ document.getElementById("sign-up-button").addEventListener("click", async functi
 	event.preventDefault();
 	const username = document.getElementById("sign-up-username").value;
 	const password = document.getElementById("sign-up-password").value;
-	const result = await fetch(defaultAddress.URL+":"+defaultAddress.PORT+"/api/createaccount", {
+	const result = await fetch(defaultAddress.URL + ":" + defaultAddress.PORT + "/api/createaccount", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
@@ -15,12 +15,12 @@ document.getElementById("sign-up-button").addEventListener("click", async functi
 	})
 	const json = await result.json();
 	if (json.message === "Ok") {
-		 document.querySelector("#signUpError").innerText = "";	
-		 changePage("/login")
-	   } else { 
-		 document.querySelector("#signUpError").innerText = json; // här finns errormeddelandet
-	   }
-}); 
+		document.querySelector("#signUpError").innerText = "";
+		changePage("/login")
+	} else {
+		document.querySelector("#signUpError").innerText = json; // här finns errormeddelandet
+	}
+});
 
 
 

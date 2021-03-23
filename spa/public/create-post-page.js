@@ -3,8 +3,8 @@ document.getElementById("create-post-button").addEventListener("click", async fu
 
 	const postTitle = document.getElementById("post-title").value
 	const postBody = document.getElementById("post-content").value
-	
-	fetch(defaultAddress.URL+":"+defaultAddress.PORT+"/api/posts/new-post", {
+
+	fetch(defaultAddress.URL + ":" + defaultAddress.PORT + "/api/posts/new-post", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",

@@ -1,6 +1,6 @@
 const express = require('express')
 const jwt = require("jsonwebtoken")
-const jwtSecret = "adfsdfsdfsdfsd"
+const jwtSecret = "5kRh21AucYhm3but2s67jEIWSy1mJekN"
 /*
 JWT secrets ska ligga i en konstant, som du ser här har jag hårdkodat in värdena.
 */
@@ -24,7 +24,7 @@ module.exports = function ({ accountManager, accountValidator }) {
 			else {
 				const accessToken = jwt.sign({
 					accountId: account.id
-				}, "5kRh21AucYhm3but2s67jEIWSy1mJekN")
+				},jwtSecret)
 				const idToken = jwt.sign({
 					sub: account.id,
 					preferred_username: account.username

@@ -21,8 +21,9 @@ CREATE TABLE comments (
 	comment VARCHAR(255) NOT NULL,
 	postid INT UNSIGNED NOT NULL,
 	username VARCHAR(50) NOT NULL,
+	accountId INT UNSIGNED,
 	FOREIGN KEY (postid) REFERENCES posts(id) ON DELETE CASCADE,
-	FOREIGN KEY (username) REFERENCES accounts(username)
+	FOREIGN KEY (accountId) REFERENCES accounts(id)
 );
 
 

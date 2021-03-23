@@ -1,5 +1,6 @@
 const { request } = require("express")
 const jwt = require("jsonwebtoken")
+const jwtSecret = "5kRh21AucYhm3but2s67jEIWSy1mJekN"
 
 exports.extractToken = function (request, res, next) {
     try {
@@ -27,7 +28,7 @@ exports.authenticate = function (request, res, next) {
         if (!authorizationHeader)
             throw new Error("No authorization header")
         const accessTokenString = authorizationHeader.substr("Bearer ".length)
-        request.payload = jwt.verify(accessTokenString, "5kRh21AucYhm3but2s67jEIWSy1mJekN")
+        request.payload = jwt.verify(accessTokenString, jwtSecret)
         next()
     } catch (error) {
         console.log(error)

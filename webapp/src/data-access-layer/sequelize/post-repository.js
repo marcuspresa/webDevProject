@@ -67,7 +67,7 @@ module.exports = function () {
 				}).then(function () {
 					callback(null, id)
 				}).catch(function (error) {
-					callback("Could not delete post")
+					callback("Could not delete post", null)
 				})
 		},
 
@@ -82,7 +82,7 @@ module.exports = function () {
 				callback(null, posts)
 			}).catch(function (error) {
 				console.log(error)
-				callback(["databaseError"], null)
+				callback("No posts exist for this account", null)
 			})
 		},
 
@@ -97,15 +97,14 @@ module.exports = function () {
 				console.log("Comment: " + comment)
 				callback(null, comment)
 			}).catch(function (error) {
-				console.log(error)
-				callback(["databaseError"], null)
+				callback("No comments exist on this post", null)
 			})
 
 		},
 
 
-		createCommentOnPostId: function (id, commentToPost, usernameThatPosted, callback) {
-			comment.create({ comment: commentToPost, username: usernameThatPosted, postid: id })
+		createCommentOnPostId: function (id, commentToPost, usernameThatPosted, accountId, callback) {
+			comment.create({ comment: commentToPost, username: usernameThatPosted, accountId: accountId, postid: id })
 				.then(function (comment) {
 					callback(null, comment)
 				}).catch(function (error) {

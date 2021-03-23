@@ -4,18 +4,6 @@ module.exports = function ({ db }) {
         /*
             Get all accounts.
         */
-        getAllAccounts: function (callback) {
-            const query = `SELECT * FROM accounts ORDER BY username`
-            const values = [];
-
-            db.query(query, values, function(err, accounts) {
-                if (err) {
-                    callback(["dbError"], null);
-                }else if (!accounts.length) {
-                    callback(["noAccounts"], null);
-                } else callback([], accounts);
-      });
-            },
 
         getPasswordByUsername: function (username, callback) {
             const query = `SELECT password FROM accounts WHERE username = ? `
@@ -26,7 +14,7 @@ module.exports = function ({ db }) {
                     return callback(null, response[0].password)
                 }
                 else {
-                    callback('Unknown error')
+                    callback('Unknown error', null)
                 }
             })
 
@@ -39,7 +27,7 @@ module.exports = function ({ db }) {
                 else if (response && response.length >= 1) {
                     callback(null, response[0])
                 } else {
-                    callback('Unknown error')
+                    callback('Unknown error', null)
                 }
             })
 
@@ -54,7 +42,7 @@ module.exports = function ({ db }) {
                         callback(error, account)
                     })
                 } else {
-                    callback('Unkown error')
+                    callback('Unkown error', null)
                 }
             })
 

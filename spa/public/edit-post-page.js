@@ -4,7 +4,7 @@ let cachedPostId = null
 function updateEditPostPage(postId) {
 
 	cachedPostId = postId
-	fetch(defaultAddress.URL+":"+defaultAddress.PORT+"/api/posts/your-post/" + postId, {
+	fetch(defaultAddress.URL + ":" + defaultAddress.PORT + "/api/posts/your-post/" + postId, {
 		method: "GET",
 		headers: {
 			"Authorization": "Bearer " + accessToken
@@ -22,23 +22,25 @@ function updateEditPostPage(postId) {
 	})
 
 }
+
 document.getElementById("edit-post-button").addEventListener("click", async function (event) {
 	event.preventDefault()
-	
+
 	const postTitle = document.getElementById("edit-post-title").value
 	const postBody = document.getElementById("edit-post-body").value
 
-	fetch(defaultAddress.URL+":"+defaultAddress.PORT+"/api/posts/edit/"+cachedPostId, {
+	fetch(defaultAddress.URL + ":" + defaultAddress.PORT + "/api/posts/edit/" + cachedPostId, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
 			"Authorization": "Bearer " + accessToken
 		},
-		body: JSON.stringify({ 	
+		body: JSON.stringify({
 			id: cachedPostId,
 			title: postTitle,
 			body: postBody,
-			accountId: userInfo.sub })
+			accountId: userInfo.sub
+		})
 	}).then(function (response) {
 		console.log(response)
 	}).catch(function (error) {

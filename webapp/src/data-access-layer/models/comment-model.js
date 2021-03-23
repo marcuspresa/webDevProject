@@ -15,15 +15,19 @@ const Comment = sequelize.define('comments', {
         onDelete: 'cascade',
         referencesKey: 'id'
     },
-    username : {
+    accountId: {
         type: DataTypes.CHAR,
         allowNull: false,
         references: 'accounts',
-        referencesKey: 'username',
-        onDelete: 'cascade' 
+        referencesKey: 'id'
+    },
+    username: {
+        type: DataTypes.CHAR,
+        allowNull: false,
     }
-    
-})
 
+})
+Comment.belongsTo(Post)
+Comment.belongsTo(Accounts)
 
 module.exports = Comment

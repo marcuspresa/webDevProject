@@ -5,7 +5,7 @@ document.getElementById("sign-in-button").addEventListener("click", async functi
 	event.preventDefault();
 	const username = document.getElementById("sign-in-username").value;
 	const password = document.getElementById("sign-in-password").value;
-	fetch(defaultAddress.URL+":"+defaultAddress.PORT+"/api/tokens", {
+	fetch(defaultAddress.URL + ":" + defaultAddress.PORT + "/api/tokens", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"

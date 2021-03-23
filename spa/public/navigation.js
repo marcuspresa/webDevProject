@@ -51,7 +51,7 @@ function changePage(uri) {
 	} else if (uri.startsWith("/create-post")) {
 		id = "create-post-page"
 
-	}else{
+	} else {
 		id = "/"
 	}
 
