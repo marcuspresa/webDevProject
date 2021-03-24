@@ -27,7 +27,6 @@ module.exports = function ({ postRepository, accountValidator }) {
 		},
 
 		createCommentOnPostId: function (id, comment, username, accountId, callback) {
-			console.log("apa2" + accountId)
 			if (username == null && comment == null) {
 				return callback(new Error("Could not create comment"), null)
 			}
@@ -38,7 +37,7 @@ module.exports = function ({ postRepository, accountValidator }) {
 
 		editPost: function (body, id, title, accountID, callback) {
 			postRepository.getPostWithPostID(id, function (error, checkPost) {
-				if (error != null){
+				if (error != null) {
 					return callback(error, null)
 				}
 				if (checkPost.accountId == accountID) {

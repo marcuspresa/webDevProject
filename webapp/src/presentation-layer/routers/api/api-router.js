@@ -16,7 +16,6 @@ module.exports = function ({ accountManager, accountValidator }) {
 			response.status(400).json({ error: "unsupported_grant_type" })
 			return
 		}
-
 		accountValidator.checkCredentials(username, password, function (errors, account) {
 			if (errors != null) {
 				response.status(500).json({ errors });

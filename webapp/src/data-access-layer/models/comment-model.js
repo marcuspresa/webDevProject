@@ -7,7 +7,7 @@ const Comment = sequelize.define('comments', {
     comment: {
         type: DataTypes.CHAR,
         allowNull: false
-    },
+    },/*
     postid: {
         type: DataTypes.CHAR,
         allowNull: false,
@@ -20,7 +20,7 @@ const Comment = sequelize.define('comments', {
         allowNull: false,
         references: 'accounts',
         referencesKey: 'id'
-    },
+    },*/
     username: {
         type: DataTypes.CHAR,
         allowNull: false,

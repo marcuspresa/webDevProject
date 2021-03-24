@@ -77,7 +77,6 @@ module.exports = function ({ db }) {
 
             db.query(query, id, function (error, result) {
                 if (error) {
-                    console.log(error + "APA")
                     callback(error, null)
                 }
                 callback(null, result)

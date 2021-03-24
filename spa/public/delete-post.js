@@ -4,6 +4,7 @@ function deletePostPage(postId) {
 		headers: {
 			"Authorization": "Bearer " + accessToken
 		},
+		body: JSON.stringify({accountId: userInfo.sub})
 	}).then(function (response) {
 		console.log(response)
 		//changePage("/posts")

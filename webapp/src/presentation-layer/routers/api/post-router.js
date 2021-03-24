@@ -5,18 +5,17 @@ module.exports = function ({ postManager }) {
     const router = express.Router()
 
     router.post("/new-post", apiMiddlewares.authenticate, function (request, response) {
-        /**
-         * Här skickar jag användares användarnamn och ID m.h.a idTOKEN,
-         * Vet inte om man måste checka här gentemot PAYLOAD ID:T det får du kolla på
-         */
-        postManager.createPost(request.body.title, request.body.body, request.body.username, request.body.accountId, function (error, createdPost) {
-            if (createdPost) {
-                response.status(201).json(createdPost)
-            } else {
-                response.json(error)
-            }
-        })
-
+        if (!request.payload) {
+            response.status(401).end()
+        } else {
+            postManager.createPost(request.body.title, request.body.body, request.body.username, request.body.accountId, function (error, createdPost) {
+                if (createdPost) {
+                    response.status(201).json(createdPost)
+                } else {
+                    response.status(500).json(error)
+                }
+            })
+        }
     })
 
     router.get("/", function (request, response) {
@@ -32,25 +31,23 @@ module.exports = function ({ postManager }) {
 
     router.delete("/delete/:id", apiMiddlewares.authenticate, function (request, response) {
         const id = request.params.id
-
-        if (request.payload != null) {
-            postManager.deletePost(request.payload.accountId, id, function (error) {
+        if (!request.payload) {
+            response.status(401).end()
+        } else {
+            postManager.deletePost(request.body.accountId, id, function (error) {
                 if (error != null) {
-                    response.status(400).end()
+                    response.status(400).json(error)
                 }
                 else {
                     response.status(200).end()
                 }
             })
-        } else {
-            response.status(400).end()
         }
     })
 
     router.get("/your-posts/:id", apiMiddlewares.authenticate, function (request, response) {
         const id = request.params.id
         postManager.getPostsWithAccountId(id, function (errors, post) {
-            const accountId = post.accountId
             if (errors != null) {
                 response.status(400)
             }
@@ -65,7 +62,7 @@ module.exports = function ({ postManager }) {
             if (errors != null) {
                 response.status(500).end()
             } else {
-                if (request.payload.accountId != post.accountId) {
+                if (request.body.accountId != post.accountId) {
                     response.status(401).end()
                     return
                 } else {
@@ -94,5 +91,5 @@ module.exports = function ({ postManager }) {
     })
 
 
-return router
+    return router
 }

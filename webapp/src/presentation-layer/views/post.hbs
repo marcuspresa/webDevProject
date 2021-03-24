@@ -49,8 +49,13 @@
   <hr>
 
   <div class="card" id="card-class">
+    {{#if error}}
+    <p>Oh no, something went wrong:</p>
 
-    
+    <p>{{error}}</p>
+
+    {{/if}}
+
     <span class="left"><strong>{{post.title}}</strong></span>
     <br>
     <br>

@@ -47,19 +47,12 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const username = req.body.username
 		const password = req.body.password
 		accountValidator.checkCredentials(username, password, function (error, account) {
-			/*
-			två error
-			*/
-			if (error) {
-				res.render("accounts-sign-in.hbs", { error: error })
-			}
-			else {
-				if (error)
-					return res.render("accounts-sign-in.hbs", { errors: [error] })
-				req.session.account = account
-				req.session.login = true
-				res.render("home.hbs", { login: true, account: account })
-			}
+			if (error)
+				return res.render("accounts-sign-in.hbs", { errors: [error] })
+			req.session.account = account
+			req.session.login = true
+			res.render("home.hbs", { login: true, account: account })
+
 		})
 	})
 
