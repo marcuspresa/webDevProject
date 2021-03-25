@@ -27,19 +27,11 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const username = req.body.username
 		const password = req.body.password
 		accountManager.createAccount(username, password, function (errors, account) {
-			/**Här fixas */
-			if (errors != null) {
-				res.render("accounts-sign-up.hbs", { errors: errors })
-
-			} else {
-				if (errors != null)
-					return res.render("accounts-sign-up.hbs", { errors: [error] })
-
-				req.session.account = account
-				req.session.login = true
-				res.render("home.hbs", { login: true, account: account })
-
-			}
+			if (errors != null)
+				return res.render("accounts-sign-up.hbs", { errors: [errors], username: username })
+			req.session.account = account
+			req.session.login = true
+			res.render("home.hbs", { login: true, account: account })
 		})
 	})
 
@@ -47,11 +39,15 @@ module.exports = function ({ accountManager, accountValidator }) {
 		const username = req.body.username
 		const password = req.body.password
 		accountValidator.checkCredentials(username, password, function (error, account) {
-			if (error)
-				return res.render("accounts-sign-in.hbs", { errors: [error] })
-			req.session.account = account
-			req.session.login = true
-			res.render("home.hbs", { login: true, account: account })
+			if (error) {
+				return res.render("accounts-sign-in.hbs", { errors: [error], username: username })
+			}
+			else {
+				req.session.account = account
+				req.session.login = true
+				res.render("home.hbs", { login: true, account: account })
+			}
+
 
 		})
 	})

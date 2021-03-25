@@ -40,10 +40,10 @@ module.exports = function ({ accountManager, accountValidator }) {
 		accountManager.createAccount(username, password, function (errors, accounts) {
 			if (errors != null) {
 				response.status(500).json(errors);
-			}
+			}/*
 			if (accounts == null) {
 				response.status(400)
-			}
+			}*/
 			else {
 				response.status(200).json({ message: "Ok" })
 			}

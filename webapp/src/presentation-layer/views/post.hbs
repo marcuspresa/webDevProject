@@ -33,14 +33,6 @@
 
 <body>
 
-  <script>
-    $(document).ready(function () {
-      $(form).on('submit', function () {
-        location.reload(true)
-      })
-    })
-
-  </script>
   <br>
 
 
@@ -48,13 +40,18 @@
 
   <hr>
 
-  <div class="card" id="card-class">
+  <div class="content">
     {{#if error}}
+      {{#if postError}}
     <p>Oh no, something went wrong:</p>
 
     <p>{{error}}</p>
+    <p>{{postError}}</p>
 
+     {{/if}}
     {{/if}}
+  </div>
+  <div class="card" id="card-class">
 
     <span class="left"><strong>{{post.title}}</strong></span>
     <br>

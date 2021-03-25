@@ -21,6 +21,17 @@
 	}
 </style>
 
+<div class="content">
+	{{#if error}}
+	<p>Oh no, something went wrong:</p>
+
+	<p>{{error}}</p>
+
+	{{/if}}
+	<h2>New post</h2>
+	<p>Create a new post the form below.</p>
+
+</div>
 {{#if login}}
 <section class="section">
 	<a class="button is-primary is-large" href="/posts/new">New post</a>

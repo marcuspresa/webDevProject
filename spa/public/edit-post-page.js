@@ -9,7 +9,6 @@ function updateEditPostPage(postId) {
 		headers: {
 			"Authorization": "Bearer " + accessToken
 		},
-		body: JSON.stringify({accountId: userInfo.sub})
 	}).then(function (response) {
 		return response.json()
 	}).then(function (post) {

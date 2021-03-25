@@ -94,7 +94,7 @@ module.exports = function ({ db }) {
                     callback(error, null)
                 }
                 else {
-                    callback(null)
+                    callback(null, result)
                 }
             })
         }

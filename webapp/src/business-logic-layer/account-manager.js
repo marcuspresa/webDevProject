@@ -5,9 +5,6 @@ const jwtSecret = "5kRh21AucYhm3but2s67jEIWSy1mJekN"
 
 module.exports = function ({ accountRepository, accountValidator }) {
 	return {
-		getAllAccounts: function (callback) {
-			accountRepository.getAllAccounts(callback)
-		},
 
 		getAccountByUsername: function (username, callback) {
 			accountRepository.getAccountByUsername(username, function (error, account) {

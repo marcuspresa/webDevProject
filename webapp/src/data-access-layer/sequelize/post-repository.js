@@ -12,7 +12,7 @@ module.exports = function () {
 			}).then(function (post) {
 				callback(null, post)
 			}).catch(function (error) {
-				callback(error, null)
+				callback("Could not get posts", null)
 			})
 		},
 
@@ -40,7 +40,6 @@ module.exports = function () {
 		},
 
 		editPost: function (id, title, body, callback) {
-			console.log(body + title + "kommer hit")
 			post.update(
 				{
 					body: body,
@@ -94,7 +93,6 @@ module.exports = function () {
 					postid: id
 				}
 			}).then(function (comment) {
-				console.log("Comment: " + comment)
 				callback(null, comment)
 			}).catch(function (error) {
 				callback("No comments exist on this post", null)

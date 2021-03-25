@@ -2,19 +2,6 @@ const accounts = require("../models/account-model.js")
 
 module.exports = function ({ }) {
 	return {
-		getAllAccounts: function (callback) {
-
-			accounts.findAll({
-				order: [
-					['username', 'DESC']
-				]
-			}).then(function (accounts) {
-				callback(null, accounts)
-			}).catch(function (error) {
-				callback(error, null)
-			})
-
-		},
 
 		getAccountByUsername: function (username, callback) {
 			accounts.findOne({
@@ -48,7 +35,7 @@ module.exports = function ({ }) {
 				})
 				.catch(function (error) {
 					console.log(error)
-					callback("dbError", null);
+					callback("Database error", null);
 				});
 		},
 

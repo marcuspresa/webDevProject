@@ -34,7 +34,7 @@ module.exports = function ({ postManager }) {
 		const username = request.session.account.username
 		postManager.createPost(title, body, username, accountId, function (error, createdPostId) {
 			if (error) {
-				return response.render("new-post.hbs", { error: error })
+				return response.render("new-post.hbs", { error: error, login: request.session.login, title: title, body: body })
 			}
 			response.redirect("/posts/" + createdPostId)
 		})
@@ -43,15 +43,13 @@ module.exports = function ({ postManager }) {
 
 	router.get("/:id", function (request, response) {
 		const id = request.params.id
-		postManager.getPostWithPostID(id, function (error, post) {
-			if (error) {
-				return response.render('post.hbs', { error: error })
-			}
+		postManager.getPostWithPostID(id, function (postError, post) {
 			postManager.getCommentsWithPostId(id, function (error, comments) {
 				const model = {
 					post: post,
 					comments: comments,
 					error: error,
+					postError: postError,
 					login: request.session.login,
 					account: request.session.account
 				}
@@ -63,21 +61,20 @@ module.exports = function ({ postManager }) {
 	router.post("/:id", function (request, response) {
 		const id = request.params.id
 		const comment = request.body.comment
-		postManager.getPostWithPostID(id, function (error, post) {
-			postManager.createCommentOnPostId(id, comment, request.session.account.username, request.session.account.id, function (error) {
-				if (error) {
-					return response.render('post.hbs', { error: error })
-				} else {
-					postManager.getCommentsWithPostId(id, function (error, comments) {
-						const model = {
-							error: error,
-							post: post,
-							comments: comments,
-							login: request.session.login
-						}
-						response.render('post.hbs', model)
-					})
-				}
+		postManager.getPostWithPostID(id, function (postError, post) {
+			postManager.createCommentOnPostId(id, comment, request.session.account.username, request.session.account.id, function (createCommentError) {
+				postManager.getCommentsWithPostId(id, function (error, comments) {
+					const model = {
+						error: error,
+						postError: postError,
+						createCommentError: createCommentError,
+						post: post,
+						comments: comments,
+						login: request.session.login
+					}
+					response.render('post.hbs', model)
+				})
+
 			})
 		})
 	})
