@@ -52,7 +52,7 @@ module.exports = function ({ postManager }) {
         } else {
             postManager.getPostsWithAccountId(id, function (errors, post) {
                 if (errors != null) {
-                    response.status(400)
+                    response.status(400).end()
                 }
                 else (
                     response.status(200).json(post)
@@ -92,17 +92,13 @@ module.exports = function ({ postManager }) {
             postManager.editPost(body, id, title, accountID, function (error) {
                 if (error != null) {
                     response.status(400).end()
-                    return
                 }
                 else {
                     response.status(200).end()
-                    return
                 }
             })
         }
 
     })
-
-
     return router
 }

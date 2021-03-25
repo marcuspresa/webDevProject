@@ -43,11 +43,13 @@
   <div class="content">
     {{#if error}}
       {{#if postError}}
+        {{#if createCommentError}}
     <p>Oh no, something went wrong:</p>
 
     <p>{{error}}</p>
     <p>{{postError}}</p>
-
+    <p>{{createCommentError}}</p>
+      {{/if}}
      {{/if}}
     {{/if}}
   </div>
