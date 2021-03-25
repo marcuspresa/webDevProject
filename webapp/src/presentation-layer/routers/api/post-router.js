@@ -31,11 +31,10 @@ module.exports = function ({ postManager }) {
 
     router.delete("/delete/:id", apiMiddlewares.authenticate, function (request, response) {
         const id = request.params.id
-        console.log(request.body.accountId + "APA")
         if (!request.payload) {
             response.status(401).end()
         } else {
-            postManager.deletePost(request.body.accountId, id, function (error) {
+            postManager.deletePost(request.payload.accountId, id, function (error) {
                 if (error != null) {
                     response.status(400).json(error)
                 }
@@ -71,9 +70,8 @@ module.exports = function ({ postManager }) {
                 if (errors != null) {
                     response.status(500).end()
                 } else {
-                    if (request.body.accountId != post.accountId) {
+                    if (request.payload.accountId != post.accountId) {
                         response.status(401).end()
-                        return
                     } else {
                         response.status(200).json(post)
                     }
