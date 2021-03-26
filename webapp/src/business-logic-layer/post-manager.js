@@ -1,5 +1,5 @@
 
-module.exports = function ({ postRepository, accountValidator }) {
+module.exports = function ({ postRepository}) {
 	return {
 
 		getAllPosts: function (callback) {

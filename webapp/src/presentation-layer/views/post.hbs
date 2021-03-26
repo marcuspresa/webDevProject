@@ -49,6 +49,7 @@
     <p>{{error}}</p>
     <p>{{postError}}</p>
     <p>{{createCommentError}}</p>
+    
       {{/if}}
      {{/if}}
     {{/if}}
@@ -68,7 +69,7 @@
 
   <form action="/posts/{{post.id}}" id="comment-form" method="POST">
 
-    <textarea class="textarea-in-post" rows="10" placeholder="Write your comment here..." name="comment" id="comment"
+    <textarea class="textarea-in-post" rows="10" placeholder="Write your comment here..." name="comment" id="comment" {{#if createCommentError}} {{comment}} {{/if}}
       required></textarea>
 
     <button type="submit" class="button is-primary">Comment!</button>

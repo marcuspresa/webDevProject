@@ -6,7 +6,7 @@ function deletePostPage(postId) {
 		},
 	}).then(function (response) {
 		console.log(response)
-		//changePage("/posts")
+		alert("Success")
 	}).catch(function (error) {
 		console.log(error)
 		alert(error)

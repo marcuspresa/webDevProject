@@ -79,14 +79,6 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(cors())
 
-// ta bort detta
-app.use(function (req, res, next) {
-	res.setHeader("Access-Control-Allow-Origin", "*")
-	res.setHeader("Access-Control-Allow-Methods", "*")
-	res.setHeader("Access-Control-Allow-Headers", "*")
-	next()
-})
-
 app.use(expressSession({
 	secret: 'forum',
 	resave: false,
@@ -131,5 +123,4 @@ app.use(function (req, res, next) {
 	if (res.status(404)) {
 		res.send('404: File Not Found :(')
 	}
-	//lägg till 500
 })

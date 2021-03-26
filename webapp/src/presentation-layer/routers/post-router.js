@@ -17,10 +17,7 @@ module.exports = function ({ postManager }) {
 
 	router.get("/new", function (request, response) {
 		if (request.session.login) {
-			const model = {
-				login: request.session.login
-			}
-			response.render("new-post.hbs", model)
+			response.render("new-post.hbs", {login: request.session.login})
 		} else {
 			response.redirect("/accounts/sign-in")
 		}

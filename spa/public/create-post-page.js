@@ -13,6 +13,7 @@ document.getElementById("create-post-button").addEventListener("click", async fu
 		body: JSON.stringify({ title: postTitle, body: postBody, accountId: userInfo.sub, username: userInfo.preferred_username })
 	}).then(function (response) {
 		console.log(response)
+		alert("Success")
 	}).catch(function (error) {
 		console.log(error)
 		alert(error)

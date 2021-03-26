@@ -43,6 +43,7 @@ document.getElementById("edit-post-button").addEventListener("click", async func
 		})
 	}).then(function (response) {
 		console.log(response)
+		alert("Success")
 	}).catch(function (error) {
 		console.log(error)
 		alert(error)
