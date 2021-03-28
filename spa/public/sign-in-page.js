@@ -19,11 +19,9 @@ document.getElementById("sign-in-button").addEventListener("click", async functi
 		userInfo = jwt_decode(idToken);
 		document.querySelector("nav").classList.add("user-is-logged-in");
 		document.getElementById("username").innerText = userInfo.preferred_username;
+		changePage("/")
 	}).catch(function (error) {
 		console.log(error)
-		//const errorText = document.getElementById("loginError")
-		//if (error = "InvalidTokenError: Invalid token specified") {
-		//	errorText.innerText = "Wrong credentials!"
-		//}
+		alert("Wrong credentials.")
 	})
 })

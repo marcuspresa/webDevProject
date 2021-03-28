@@ -14,7 +14,7 @@ module.exports = function ({ db }) {
                     return callback(null, response[0].password)
                 }
                 else {
-                    callback('Unknown error', null)
+                    callback('No such account exists ', null)
                 }
             })
 
@@ -27,7 +27,7 @@ module.exports = function ({ db }) {
                 else if (response && response.length >= 1) {
                     callback(null, response[0])
                 } else {
-                    callback('Unknown error', null)
+                    callback('No account with specified username', null)
                 }
             })
 
@@ -42,7 +42,7 @@ module.exports = function ({ db }) {
                         callback(error, account)
                     })
                 } else {
-                    callback('Unkown error', null)
+                    callback('Could not create account', null)
                 }
             })
 

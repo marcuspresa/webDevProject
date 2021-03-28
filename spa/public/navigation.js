@@ -47,6 +47,7 @@ function changePage(uri) {
 	} else if (uri.startsWith("/delete/")) {
 		const postId = parseInt(uri.split("/")[2])
 		deletePostPage(postId)
+		id = "your-posts-page"
 	} else if (uri.startsWith("/create-post")) {
 		id = "create-post-page"
 	} else {

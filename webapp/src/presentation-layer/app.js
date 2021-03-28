@@ -17,13 +17,13 @@ const accountValidator = require('../business-logic-layer/account-validator')
 const postManager = require('../business-logic-layer/post-manager')
 
 /*Database*/
-//const accountRepository = require('../data-access-layer/sql/account-repository')
-//const postRepository = require('../data-access-layer/sql/post-repository')
-//const db = require('../data-access-layer/sql/db.js')
+const accountRepository = require('../data-access-layer/sql/account-repository')
+const postRepository = require('../data-access-layer/sql/post-repository')
+const db = require('../data-access-layer/sql/db.js')
 const redisStore = require('connect-redis')(expressSession)
-const db = require('../data-access-layer/sequelize/db')
-const accountRepository = require('../data-access-layer/sequelize/account-repository')
-const postRepository = require('../data-access-layer/sequelize/post-repository')
+//const db = require('../data-access-layer/sequelize/db')
+//const accountRepository = require('../data-access-layer/sequelize/account-repository')
+//const postRepository = require('../data-access-layer/sequelize/post-repository')
 
 
 /*`Routers*/

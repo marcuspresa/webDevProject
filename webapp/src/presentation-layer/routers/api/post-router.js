@@ -91,6 +91,9 @@ module.exports = function ({ postManager }) {
         } else {
             postManager.editPost(body, id, title, accountID, function (error) {
                 if (error != null) {
+                    if(error == "Not your post"){
+                        response.status(401).end()
+                    }
                     response.status(400).end()
                 }
                 else {

@@ -28,7 +28,7 @@ module.exports = function ({ db }) {
                 if (error) {
                     callback(error, null)
                 } else {
-                    callback(null, result.changedRows)
+                    callback(null, "Success")
                 }
             })
         },
@@ -40,7 +40,7 @@ module.exports = function ({ db }) {
                 if (error) {
                     callback(error, null)
                 } else {
-                    callback(null, result.affectedRows)
+                    callback(null, "Success")
                 }
             })
         },
@@ -94,7 +94,7 @@ module.exports = function ({ db }) {
                     callback(error, null)
                 }
                 else {
-                    callback(null, result)
+                    callback(null, "Success")
                 }
             })
         }

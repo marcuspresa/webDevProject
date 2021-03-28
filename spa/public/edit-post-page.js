@@ -43,7 +43,7 @@ document.getElementById("edit-post-button").addEventListener("click", async func
 		})
 	}).then(function (response) {
 		console.log(response)
-		alert("Success")
+		changePage("/your-posts")
 	}).catch(function (error) {
 		console.log(error)
 		alert(error)

@@ -5,7 +5,7 @@ module.exports = function ({ postRepository}) {
 		getAllPosts: function (callback) {
 			postRepository.getAllPosts(function (error, posts) {
 				if (error) {
-					callback(new Error("Could not get all posts"), null)
+					callback("Could not get all posts", null)
 				}
 				else {
 					callback(null, posts)
@@ -28,7 +28,7 @@ module.exports = function ({ postRepository}) {
 
 		createCommentOnPostId: function (id, comment, username, accountId, callback) {
 			if (username == null && comment == null) {
-				return callback(new Error("Could not create comment"), null)
+				return callback("Could not create comment", null)
 			}
 			else {
 				postRepository.createCommentOnPostId(id, comment, username, accountId, callback)

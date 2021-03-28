@@ -11,14 +11,13 @@ document.getElementById("sign-up-button").addEventListener("click", async functi
 
 	}).catch(function (error) {
 		console.log(error)
-		//document.querySelector("#errorMessages").innerText = json.message; // här finns errormeddelandet
 	})
 	const json = await result.json();
 	if (json.message === "Ok") {
-		document.querySelector("#signUpError").innerText = "";
+		alert("OK")
 		changePage("/login")
 	} else {
-		document.querySelector("#signUpError").innerText = json; // här finns errormeddelandet
+		document.querySelector("#signUpError").innerText = json; 
 	}
 });
 

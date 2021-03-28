@@ -25,6 +25,7 @@
 </div>
 
 <form action="/accounts/sign-up" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
 	<hr>
 	<label for="username"><b>Username</b></label>
 	<input type="text" placeholder="Enter username" name="username" {{#if username}} value={{username}} {{/if}}
